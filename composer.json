@@ -1,0 +1,72 @@
+{
+    "name": "autoaltai/alt-text-generator",
+    "description": "TYPO3 extension for generating accessible image alt text with AutoAlt.ai.",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://autoalt.ai",
+    "keywords": [
+        "TYPO3",
+        "accessibility",
+        "alt-text",
+        "AI",
+        "SEO",
+        "AutoAlt.ai"
+    ],
+    "authors": [
+        {
+            "name": "AutoAlt.ai",
+            "homepage": "https://autoalt.ai",
+            "role": "Vendor"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/autoaltai/typo3-alt-text-generator/issues",
+        "source": "https://github.com/autoaltai/typo3-alt-text-generator",
+        "docs": "https://docs.typo3.org/p/autoaltai/alt-text-generator/main/en-us/"
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "psr/log": "^3.0",
+        "typo3/cms-backend": "^13.4 || ^14.0",
+        "typo3/cms-core": "^13.4 || ^14.0",
+        "typo3/cms-filelist": "^13.4 || ^14.0",
+        "typo3/cms-fluid": "^13.4 || ^14.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AutoAltAi\\AltTextGenerator\\": "Classes/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5",
+        "typo3/testing-framework": "^9.6"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AutoAltAi\\AltTextGenerator\\Tests\\": "Tests/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "alt_text_generator"
+        }
+    },
+    "scripts": {
+        "lint:composer": "composer validate --strict --no-check-publish",
+        "lint:php": "find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "lint:yaml": "if [ -x vendor/bin/yaml-lint ]; then vendor/bin/yaml-lint Configuration/Services.yaml; else ../../vendor/bin/yaml-lint Configuration/Services.yaml; fi",
+        "test": [
+            "@lint:composer",
+            "@lint:php",
+            "@lint:yaml",
+            "@test:unit"
+        ],
+        "test:functional": "phpunit --testsuite Functional",
+        "test:unit": "phpunit --testsuite Unit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

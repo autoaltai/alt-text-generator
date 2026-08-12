@@ -1,0 +1,220 @@
+<f:asset.module identifier="@autoaltai/alt-text-generator/bulk-generation.js"/>
+<div class="autoalt-module autoalt-workspace" data-autoalt-page="bulk">
+    <nav class="autoalt-primary-nav" aria-label="AutoAlt.ai">
+        <span class="autoalt-primary-nav__item autoalt-primary-nav__item--generate" aria-current="page"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#10022;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.bulk"/></span>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--rename" href="{renameUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9998;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.rename"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--history" href="{historyUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#8634;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.history"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--settings" href="{settingsUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9881;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.settings"/></a>
+    </nav>
+
+    <header class="autoalt-page-hero">
+        <div>
+            <p class="autoalt-module__eyebrow"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.eyebrow"/></p>
+            <h1 class="autoalt-module__title"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:module.bulk.title"/></h1>
+            <p class="autoalt-module__intro">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.intro"/>
+            </p>
+        </div>
+        <div class="autoalt-page-hero__actions">
+            <span class="autoalt-credit-pill">
+                <span class="autoalt-credit-pill__icon" aria-hidden="true">&#9889;</span>
+                <f:if condition="{creditSummary.hasCreditData}">
+                    <f:then><strong>{creditSummary.cardValue}</strong> <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.credits.short"/></f:then>
+                    <f:else>{creditSummary.status}</f:else>
+                </f:if>
+            </span>
+        </div>
+    </header>
+
+    <div class="autoalt-dashboard-grid autoalt-workspace-stats">
+        <section class="autoalt-stat-card autoalt-stat-card--neutral">
+            <div class="autoalt-stat-card__topline">
+                <div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.workbench.totalImages"/></div>
+                <span class="autoalt-stat-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <rect x="3.5" y="4.5" width="17" height="15" rx="2"></rect>
+                        <circle cx="8.5" cy="9.5" r="1.5"></circle>
+                        <path d="M5.5 17l4.2-4.3 3.2 3.1 2.3-2.2 3.3 3.4"></path>
+                    </svg>
+                </span>
+            </div>
+            <div class="autoalt-stat-card__value">{imageScanSummary.totalImages}</div>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--danger">
+            <div class="autoalt-stat-card__topline"><div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.workbench.missingAltText"/></div><span class="autoalt-stat-card__icon" aria-hidden="true">!</span></div>
+            <div class="autoalt-stat-card__value">{imageScanSummary.missingAltText}</div>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--warning">
+            <div class="autoalt-stat-card__topline"><div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.stats.shortAltText"/></div><span class="autoalt-stat-card__icon" aria-hidden="true">&#9888;</span></div>
+            <div class="autoalt-stat-card__value">{imageScanSummary.shortAltText}</div>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--success">
+            <div class="autoalt-stat-card__topline"><div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.stats.availableCredits"/></div><span class="autoalt-stat-card__icon" aria-hidden="true">&#9889;</span></div>
+            <div class="autoalt-stat-card__value">{creditSummary.cardValue}</div>
+        </section>
+    </div>
+
+    <f:if condition="{canRunBulkGeneration}">
+        <f:then>
+            <div data-autoalt-bulk-generation
+                 data-preview-url="{bulkPreviewAjaxUrl}"
+                 data-process-url="{bulkProcessAjaxUrl}"
+                 data-generate-label="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.generateButton')}">
+                <div class="autoalt-bulk-config-grid">
+                    <section class="autoalt-panel autoalt-field-actions">
+                        <div class="autoalt-panel__header">
+                            <div>
+                                <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.title"/></h2>
+                                <p class="autoalt-field-actions__intro"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.intro"/></p>
+                            </div>
+                        </div>
+                        <div class="autoalt-field-actions__table" role="group" aria-label="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.title')}">
+                            <div class="autoalt-field-actions__head" aria-hidden="true">
+                                <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.field"/></span>
+                                <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.action"/></span>
+                            </div>
+                            <div class="autoalt-field-action">
+                                <div class="autoalt-field-action__field">
+                                    <strong><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.altText"/></strong>
+                                    <small><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.altTextHelp"/></small>
+                                </div>
+                                <div class="autoalt-action-toggle" data-role="field-action" data-field="altTextAction">
+                                    <button type="button" class="autoalt-action-toggle__button is-active" data-action="generate" aria-pressed="true"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.generate"/></button>
+                                    <button type="button" class="autoalt-action-toggle__button" data-action="keep" aria-pressed="false"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.keep"/></button>
+                                    <button type="button" class="autoalt-action-toggle__button" data-action="clear" aria-pressed="false"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.clear"/></button>
+                                </div>
+                            </div>
+                            <div class="autoalt-field-action">
+                                <div class="autoalt-field-action__field">
+                                    <strong><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.titleField"/></strong>
+                                    <small><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.titleHelp"/></small>
+                                </div>
+                                <div class="autoalt-action-toggle" data-role="field-action" data-field="titleAction">
+                                    <button type="button" class="autoalt-action-toggle__button" data-action="generate" aria-pressed="false"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.generate"/></button>
+                                    <button type="button" class="autoalt-action-toggle__button is-active" data-action="keep" aria-pressed="true"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.keep"/></button>
+                                    <button type="button" class="autoalt-action-toggle__button" data-action="clear" aria-pressed="false"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.clear"/></button>
+                                </div>
+                            </div>
+                            <div class="autoalt-field-action">
+                                <div class="autoalt-field-action__field">
+                                    <strong><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.description"/></strong>
+                                    <small><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.descriptionHelp"/></small>
+                                </div>
+                                <div class="autoalt-action-toggle" data-role="field-action" data-field="descriptionAction">
+                                    <button type="button" class="autoalt-action-toggle__button" data-action="generate" aria-pressed="false"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.generate"/></button>
+                                    <button type="button" class="autoalt-action-toggle__button is-active" data-action="keep" aria-pressed="true"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.keep"/></button>
+                                    <button type="button" class="autoalt-action-toggle__button" data-action="clear" aria-pressed="false"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.fieldActions.clear"/></button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="autoalt-panel">
+                        <div class="autoalt-panel__header">
+                            <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.keywordsTitle"/></h2>
+                        </div>
+                        <div class="autoalt-form-grid autoalt-form-grid--single-column">
+                            <label class="autoalt-field">
+                                <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.seoKeywords"/></span>
+                                <input class="form-control" type="text" value="{defaultSeoKeywords}" data-role="seo-keywords-input"
+                                       maxlength="180" aria-describedby="autoalt-seo-keywords-help autoalt-seo-keywords-error"
+                                       placeholder="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.seoKeywordsPlaceholder')}">
+                                <small class="autoalt-field__help" id="autoalt-seo-keywords-help"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.keywordsHelp"/></small>
+                                <small class="autoalt-field__validation" id="autoalt-seo-keywords-error" data-role="seo-keywords-error" aria-live="polite" hidden="hidden"></small>
+                            </label>
+                            <label class="autoalt-field">
+                                <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.negativeKeywords"/></span>
+                                <input class="form-control" type="text" value="{defaultNegativeKeywords}" data-role="negative-keywords-input"
+                                       maxlength="180" aria-describedby="autoalt-negative-keywords-help autoalt-negative-keywords-error"
+                                       placeholder="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.negativeKeywordsPlaceholder')}">
+                                <small class="autoalt-field__help" id="autoalt-negative-keywords-help"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.keywordsHelp"/></small>
+                                <small class="autoalt-field__validation" id="autoalt-negative-keywords-error" data-role="negative-keywords-error" aria-live="polite" hidden="hidden"></small>
+                            </label>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="autoalt-panel">
+                    <div class="autoalt-panel__header">
+                        <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.title"/></h2>
+                    </div>
+                    <div class="autoalt-form-grid">
+                        <label class="autoalt-switch">
+                            <input type="checkbox" data-role="option-overwriteExisting"{checkedOverwriteExisting -> f:format.raw()}>
+                            <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.overwriteExisting"/></span>
+                        </label>
+                        <label class="autoalt-switch">
+                            <input type="checkbox" data-role="option-skipProcessed">
+                            <span>
+                                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.skipProcessed"/>
+                                ( <span data-role="already-processed-count">{alreadyProcessedCount}</span> )
+                            </span>
+                        </label>
+                        <label class="autoalt-switch">
+                            <input type="checkbox" data-role="option-onlyShortAltText">
+                            <span>
+                                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.onlyShortAltText"/>
+                                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.characterRange" arguments="{0: shortAltTextLength}"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="autoalt-generate-row">
+                        <p class="autoalt-generate-row__note">
+                            <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.dimensionNote"/>
+                        </p>
+                        <button class="btn autoalt-btn-brand" type="button" data-role="generate-button">
+                            <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.options.generateButton" arguments="{0: 0}"/>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="autoalt-panel" data-role="progress-panel" hidden="hidden">
+                    <div class="autoalt-panel__header">
+                        <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueuePanel.title"/></h2>
+                        <div class="autoalt-panel__headerActions">
+                            <button type="button" class="btn btn-sm btn-danger" data-role="stop" disabled="disabled">
+                                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:bulk.stop.button"/>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="autoalt-progress__message" data-role="message" hidden="hidden"></p>
+                    <div class="autoalt-progress">
+                        <div class="autoalt-progress__meta">
+                            <span data-role="meta">0 / 0</span>
+                            <strong data-role="percentage">0%</strong>
+                        </div>
+                        <div class="autoalt-progress__track" aria-hidden="true">
+                            <div class="autoalt-progress__bar" data-role="bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="autoalt-live-log">
+                        <div class="autoalt-live-log__header">
+                            <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueue.liveLog.title"/></span>
+                            <span data-role="live-log-count">0 / 0</span>
+                        </div>
+                        <div class="autoalt-live-log__table-wrap">
+                            <table class="autoalt-history-table">
+                                <thead>
+                                    <tr>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueue.liveLog.image"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueue.liveLog.result"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueue.liveLog.status"/></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-role="live-log-rows"></tbody>
+                            </table>
+                            <p class="autoalt-scan-empty" data-role="live-log-empty">
+                                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueue.liveLog.empty"/>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </f:then>
+        <f:else>
+            <div class="alert alert-info" role="alert">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.bulkQueue.noPermission"/>
+            </div>
+        </f:else>
+    </f:if>
+</div>

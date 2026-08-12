@@ -1,0 +1,109 @@
+<div class="autoalt-module autoalt-workspace" data-autoalt-page="dashboard">
+    <nav class="autoalt-primary-nav" aria-label="AutoAlt.ai">
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--generate" href="{bulkUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#10022;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.bulk"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--rename" href="{renameUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9998;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.rename"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--history" href="{historyUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#8634;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.history"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--settings" href="{settingsUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9881;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.settings"/></a>
+    </nav>
+
+    <header class="autoalt-page-hero">
+        <div>
+            <p class="autoalt-module__eyebrow"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.eyebrow"/></p>
+            <h1 class="autoalt-module__title"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.title"/></h1>
+            <p class="autoalt-module__intro">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.intro"/>
+            </p>
+        </div>
+        <div class="autoalt-page-hero__actions">
+            <span class="autoalt-credit-pill">
+                <span class="autoalt-credit-pill__icon" aria-hidden="true">&#9889;</span>
+                <strong>{creditSummary.cardValue}</strong>
+            </span>
+            <a class="btn btn-default" href="https://www.autoalt.ai/account/" target="_blank" rel="noreferrer">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.nav.account"/>
+            </a>
+            <a class="btn autoalt-btn-brand" href="https://www.autoalt.ai/account/api-keys" target="_blank" rel="noreferrer">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.nav.apiKeys"/>
+            </a>
+        </div>
+    </header>
+
+    <div class="autoalt-dashboard-grid autoalt-workspace-stats">
+        <f:for each="{overviewCards}" as="card">
+            <section class="autoalt-stat-card autoalt-stat-card--{card.state}">
+                <div class="autoalt-stat-card__topline">
+                    <div class="autoalt-stat-card__label">{card.label}</div>
+                    <span class="autoalt-stat-card__icon autoalt-stat-card__icon--{card.state}" aria-hidden="true"></span>
+                </div>
+                <div class="autoalt-stat-card__value">{card.value}</div>
+                <p class="autoalt-stat-card__detail">{card.detail}</p>
+            </section>
+        </f:for>
+    </div>
+
+    <div class="autoalt-module__columns">
+        <div class="autoalt-main-stack">
+            <section class="autoalt-panel">
+                <div class="autoalt-panel__header">
+                    <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.quickLinks.title"/></h2>
+                </div>
+                <div class="autoalt-workflow-list">
+                    <f:for each="{quickLinks}" as="link">
+                        <article class="autoalt-workflow-item">
+                            <div>
+                                <h3>{link.title}</h3>
+                                <p>{link.description}</p>
+                            </div>
+                            <a class="btn btn-sm btn-default" href="{link.url}">
+                                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.quickLinks.open"/>
+                            </a>
+                        </article>
+                    </f:for>
+                </div>
+            </section>
+        </div>
+
+        <div class="autoalt-side-stack">
+            <aside class="autoalt-panel">
+                <div class="autoalt-panel__header">
+                    <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.creditsPanel.title"/></h2>
+                </div>
+                <f:if condition="{creditSummary.hasCreditData}">
+                    <f:then>
+                        <dl class="autoalt-definition-list">
+                            <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.credits.status"/></dt>
+                            <dd>{creditSummary.status}</dd>
+                            <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.credits.available"/></dt>
+                            <dd>{creditSummary.available}</dd>
+                            <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.credits.used"/></dt>
+                            <dd>{creditSummary.used}</dd>
+                            <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.credits.total"/></dt>
+                            <dd>{creditSummary.total}</dd>
+                            <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.credits.paid"/></dt>
+                            <dd>{creditSummary.paidCredit} / {creditSummary.totalPaidCredit}</dd>
+                            <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.credits.free"/></dt>
+                            <dd>{creditSummary.freeCredit} / {creditSummary.totalFreeCredit}</dd>
+                        </dl>
+                    </f:then>
+                    <f:else>
+                        <p class="autoalt-panel__body">{creditSummary.cardDetail}</p>
+                    </f:else>
+                </f:if>
+            </aside>
+
+            <aside class="autoalt-panel">
+                <div class="autoalt-panel__header">
+                    <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.defaultsPanel.title"/></h2>
+                </div>
+                <dl class="autoalt-definition-list">
+                    <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.defaults.apiKey"/></dt>
+                    <dd>{configuration.apiKeyState}</dd>
+                    <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.defaults.writingStyle"/></dt>
+                    <dd>{configuration.writingStyle}</dd>
+                    <dt><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.defaults.imageExtensions"/></dt>
+                    <dd>{configuration.allowedImageExtensions}</dd>
+                </dl>
+            </aside>
+        </div>
+    </div>
+</div>

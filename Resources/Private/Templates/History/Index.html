@@ -1,0 +1,193 @@
+<f:asset.module identifier="@autoaltai/alt-text-generator/history-inline-edit.js"/>
+<div class="autoalt-module autoalt-workspace" data-autoalt-page="history">
+    <nav class="autoalt-primary-nav" aria-label="AutoAlt.ai">
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--generate" href="{bulkUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#10022;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.bulk"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--rename" href="{renameUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9998;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.rename"/></a>
+        <span class="autoalt-primary-nav__item autoalt-primary-nav__item--history" aria-current="page"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#8634;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.history"/></span>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--settings" href="{settingsUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9881;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.settings"/></a>
+    </nav>
+
+    <header class="autoalt-page-hero">
+        <div>
+            <p class="autoalt-module__eyebrow"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.eyebrow"/></p>
+            <h1 class="autoalt-module__title"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.title"/></h1>
+            <p class="autoalt-module__intro">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.intro"/>
+            </p>
+        </div>
+    </header>
+
+    <f:if condition="{retryMessage}">
+        <div data-role="retry-notification" data-state="{retryMessage.state}" data-message="{retryMessage.message}" hidden="hidden"></div>
+    </f:if>
+
+    <div class="autoalt-dashboard-grid autoalt-workspace-stats autoalt-workspace-stats--three">
+        <section class="autoalt-stat-card autoalt-stat-card--neutral">
+            <div class="autoalt-stat-card__topline"><div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.stat.total"/></div><span class="autoalt-stat-card__icon" aria-hidden="true">&#9638;</span></div>
+            <div class="autoalt-stat-card__value">{total}</div>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--success">
+            <div class="autoalt-stat-card__topline"><div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.stat.successful"/></div><span class="autoalt-stat-card__icon" aria-hidden="true">&#10003;</span></div>
+            <div class="autoalt-stat-card__value">{successCount}</div>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--danger">
+            <div class="autoalt-stat-card__topline"><div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.stat.failed"/></div><span class="autoalt-stat-card__icon" aria-hidden="true">!</span></div>
+            <div class="autoalt-stat-card__value">{failedCount}</div>
+        </section>
+    </div>
+
+    <section class="autoalt-panel autoalt-history-searchpanel">
+        <form class="autoalt-history-searchform" action="{historyPath}" method="get">
+            <input type="hidden" name="token" value="{historyToken}">
+            <div class="autoalt-history-searchform__field autoalt-history-searchform__field--search">
+                <label for="autoalt-history-search"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.filter.search.label"/></label>
+                <input type="text" class="form-control" id="autoalt-history-search" name="search" value="{search}" placeholder="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.filter.search.placeholder')}">
+            </div>
+            <div class="autoalt-history-searchform__field">
+                <label for="autoalt-history-language"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.filter.language.label"/></label>
+                <select class="form-select" id="autoalt-history-language" name="language">
+                    <f:for each="{languageOptions}" as="option">
+                        <option value="{option.value}"{option.selectedAttribute -> f:format.raw()}>{option.label}</option>
+                    </f:for>
+                </select>
+            </div>
+            <div class="autoalt-history-searchform__field">
+                <label for="autoalt-history-status"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.filter.status.label"/></label>
+                <select class="form-select" id="autoalt-history-status" name="status">
+                    <f:for each="{statusOptions}" as="option">
+                        <option value="{option.value}"{option.selectedAttribute -> f:format.raw()}>{option.label}</option>
+                    </f:for>
+                </select>
+            </div>
+            <div class="autoalt-history-searchform__field">
+                <label for="autoalt-history-source"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.filter.source.label"/></label>
+                <select class="form-select" id="autoalt-history-source" name="source">
+                    <f:for each="{sourceOptions}" as="option">
+                        <option value="{option.value}"{option.selectedAttribute -> f:format.raw()}>{option.label}</option>
+                    </f:for>
+                </select>
+            </div>
+            <button type="submit" class="btn autoalt-btn-brand autoalt-history-searchform__submit"><span aria-hidden="true">&#8981;</span> <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.filter.submit"/></button>
+        </form>
+    </section>
+
+    <section class="autoalt-panel autoalt-history-results">
+        <div class="autoalt-panel__header">
+            <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.panel.title"/></h2>
+        </div>
+
+        <f:if condition="{entries}">
+            <f:then>
+                <div class="autoalt-history-table-wrap" data-role="history-table">
+                    <table class="autoalt-history-table">
+                        <thead>
+                            <tr>
+                                <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.table.imageDetails"/></th>
+                                <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.table.result"/></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{entries}" as="entry">
+                                <tr>
+                                    <td>
+                                        <div class="autoalt-history-imagecell">
+                                            <f:if condition="{entry.thumbnailUrl}">
+                                                <f:then>
+                                                    <f:if condition="{entry.editUrl}">
+                                                        <f:then>
+                                                            <a href="{entry.editUrl}" title="{entry.fileName}">
+                                                                <img class="autoalt-history-table__thumbnail" src="{entry.thumbnailUrl}" alt="" width="70" height="70">
+                                                            </a>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <img class="autoalt-history-table__thumbnail" src="{entry.thumbnailUrl}" alt="" width="70" height="70" title="{entry.fileName}">
+                                                        </f:else>
+                                                    </f:if>
+                                                </f:then>
+                                                <f:else>
+                                                    <span class="autoalt-history-table__thumbnail autoalt-history-table__thumbnail--placeholder" aria-hidden="true" title="{entry.fileName}"></span>
+                                                </f:else>
+                                            </f:if>
+                                            <div class="autoalt-history-imagecell__meta">
+                                                <span class="autoalt-history-imagecell__filename">{entry.fileName}</span>
+                                                <span class="autoalt-history-imagecell__idDate">
+                                                    <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.table.idLabel"/> #{entry.fileUid} &bull; <f:format.date format="d.m.Y H:i:s">{entry.crdate}</f:format.date>
+                                                </span>
+                                                <div class="autoalt-history-imagecell__badges">
+                                                    <f:if condition="{entry.language}">
+                                                        <span class="autoalt-history-meta-badge autoalt-history-meta-badge--language">
+                                                            <span class="autoalt-history-meta-badge__flag" aria-hidden="true">{entry.languageFlag}</span>
+                                                            <span>{entry.languageLabel}</span>
+                                                        </span>
+                                                    </f:if>
+                                                    <span class="autoalt-history-meta-badge autoalt-history-meta-badge--method autoalt-history-meta-badge--method-{entry.source}">{entry.sourceLabel}</span>
+                                                    <f:if condition="{entry.isSuccessful}">
+                                                        <f:then>
+                                                            <span class="autoalt-history-meta-badge autoalt-history-meta-badge--success"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.badge.success"/></span>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <span class="autoalt-history-meta-badge autoalt-history-meta-badge--failed"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.badge.failed"/></span>
+                                                        </f:else>
+                                                    </f:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="autoalt-history-table__result">
+                                        <f:if condition="{entry.isSuccessful}">
+                                            <f:then>
+                                                <div class="autoalt-history-subpanel autoalt-history-subpanel--alt-text">
+                                                    <span class="autoalt-history-subpanel__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.result.altText"/></span>
+                                                    <f:render partial="HistoryEditableField" arguments="{field: 'altText', historyUid: entry.uid, updateUrl: updateAltTextAjaxUrl, value: entry.generatedAltText, canEditHistoryMetadata: canEditHistoryMetadata, rows: 3}"/>
+                                                </div>
+
+                                                <f:if condition="{entry.generatedTitle}">
+                                                    <div class="autoalt-history-subpanel">
+                                                        <span class="autoalt-history-subpanel__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.result.title"/></span>
+                                                        <f:render partial="HistoryEditableField" arguments="{field: 'title', historyUid: entry.uid, updateUrl: updateTitleAjaxUrl, value: entry.generatedTitle, canEditHistoryMetadata: canEditHistoryMetadata, rows: 2}"/>
+                                                    </div>
+                                                </f:if>
+
+                                                <f:if condition="{entry.generatedDescription}">
+                                                    <div class="autoalt-history-subpanel">
+                                                        <span class="autoalt-history-subpanel__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.result.description"/></span>
+                                                        <f:render partial="HistoryEditableField" arguments="{field: 'description', historyUid: entry.uid, updateUrl: updateDescriptionAjaxUrl, value: entry.generatedDescription, canEditHistoryMetadata: canEditHistoryMetadata, rows: 3}"/>
+                                                    </div>
+                                                </f:if>
+                                            </f:then>
+                                            <f:else>
+                                                <span class="autoalt-history-table__error">{entry.errorMessage}</span>
+                                            </f:else>
+                                        </f:if>
+                                    </td>
+                                    <td>
+                                        <f:if condition="{canEditHistoryMetadata} && !{entry.isLocalizedTranslation}">
+                                            <form action="{retryUrl}" method="post">
+                                                <input type="hidden" name="uid" value="{entry.uid}">
+                                                <button class="btn btn-sm btn-default autoalt-icon-button" type="submit"><span aria-hidden="true">&#8635;</span> <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.action.retry"/></button>
+                                            </form>
+                                        </f:if>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="autoalt-history-pagination">
+                    <f:if condition="{hasPrevious}">
+                        <a class="btn btn-sm btn-default" href="{previousUrl}"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.pagination.previous"/></a>
+                    </f:if>
+                    <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.pagination.page" arguments="{0: page, 1: totalPages}"/></span>
+                    <f:if condition="{hasNext}">
+                        <a class="btn btn-sm btn-default" href="{nextUrl}"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.pagination.next"/></a>
+                    </f:if>
+                </div>
+            </f:then>
+            <f:else>
+                <p class="autoalt-panel__body"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.empty"/></p>
+            </f:else>
+        </f:if>
+    </section>
+</div>

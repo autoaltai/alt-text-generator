@@ -1,0 +1,1252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2026-08-03T00:00:00Z" product-name="alt_text_generator">
+        <header/>
+        <body>
+            <trans-unit id="module.title">
+                <source>AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="module.shortDescription">
+                <source>Generate image alt text with AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="module.description">
+                <source>Manage AutoAlt.ai image alt text generation for TYPO3 media assets.</source>
+            </trans-unit>
+            <trans-unit id="module.bulk.title">
+                <source>Bulk Generate</source>
+            </trans-unit>
+            <trans-unit id="module.bulk.shortDescription">
+                <source>Create and run bulk alt text generation</source>
+            </trans-unit>
+            <trans-unit id="module.bulk.description">
+                <source>Scan for images missing alt text and generate alt text for them in bulk.</source>
+            </trans-unit>
+            <trans-unit id="module.history.title">
+                <source>History</source>
+            </trans-unit>
+            <trans-unit id="module.history.shortDescription">
+                <source>Review generated alt text and errors</source>
+            </trans-unit>
+            <trans-unit id="module.history.description">
+                <source>Review generated alt text, errors, and retry activity.</source>
+            </trans-unit>
+            <trans-unit id="module.settings.title">
+                <source>Settings</source>
+            </trans-unit>
+            <trans-unit id="module.settings.shortDescription">
+                <source>Configure AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="module.settings.description">
+                <source>Configure the AutoAlt.ai connection, generation rules, and filters.</source>
+            </trans-unit>
+
+            <trans-unit id="nav.dashboard">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="nav.bulk">
+                <source>Bulk Alt Text Generator</source>
+            </trans-unit>
+            <trans-unit id="nav.rename">
+                <source>Bulk Rename Images</source>
+            </trans-unit>
+            <trans-unit id="nav.history">
+                <source>Alt Text History</source>
+            </trans-unit>
+            <trans-unit id="nav.settings">
+                <source>Extension Configuration</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.title">
+                <source>Alt Text Generator</source>
+            </trans-unit>
+            <trans-unit id="dashboard.eyebrow">
+                <source>AutoAlt.ai for TYPO3</source>
+            </trans-unit>
+            <trans-unit id="dashboard.intro">
+                <source>Generate accessible, SEO-friendly image alt text for TYPO3 media assets.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.nav.history">
+                <source>History</source>
+            </trans-unit>
+            <trans-unit id="dashboard.nav.settings">
+                <source>Settings</source>
+            </trans-unit>
+            <trans-unit id="dashboard.nav.account">
+                <source>Account</source>
+            </trans-unit>
+            <trans-unit id="dashboard.nav.apiKeys">
+                <source>API keys</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.card.connection.label">
+                <source>Connection</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.connection.ready">
+                <source>Ready</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.connection.needsApiKey">
+                <source>Needs API key</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.connection.detail.ready">
+                <source>API key is configured.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.connection.detail.needsApiKey">
+                <source>Add an API key in extension configuration.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.extension.label">
+                <source>Extension</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.extension.enabled">
+                <source>Enabled</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.extension.disabled">
+                <source>Disabled</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.extension.detail.enabled">
+                <source>Backend workflows are available.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.extension.detail.disabled">
+                <source>Generation workflows are paused.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.uploadAutomation.label">
+                <source>Upload Automation</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.uploadAutomation.detail.enabled">
+                <source>New uploads are processed immediately.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.uploadAutomation.detail.disabled">
+                <source>Uploads require manual generation.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.credits.label">
+                <source>Credits</source>
+            </trans-unit>
+            <trans-unit id="dashboard.card.imagesMissingAlt.label">
+                <source>Images Missing Alt</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.needsApiKey">
+                <source>Needs API key</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.needsApiKey.detail">
+                <source>Add an API key in Settings to load your AutoAlt.ai credit balance.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.unavailable">
+                <source>Unavailable</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.lookupFailed">
+                <source>Credit lookup failed: %s</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.detail.available">
+                <source>Available credits from paid and free balances.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.detail.none">
+                <source>No credits available. Add credits in your AutoAlt.ai account.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.status.ready">
+                <source>Ready</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credit.status.outOfCredits">
+                <source>Out of credits</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.imageScan.unavailable">
+                <source>Unavailable</source>
+            </trans-unit>
+            <trans-unit id="dashboard.imageScan.failed">
+                <source>Image scan failed. Check the system log for details.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.imageScan.detail.hasMissing">
+                <source>Indexed images are ready for review and generation.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.imageScan.detail.none">
+                <source>No indexed images currently need alt text.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.imageScan.missingBadge">
+                <source>Missing alt</source>
+            </trans-unit>
+
+
+            <trans-unit id="dashboard.workbench.totalImages">
+                <source>Total images</source>
+            </trans-unit>
+            <trans-unit id="dashboard.workbench.missingAltText">
+                <source>Missing alt text</source>
+            </trans-unit>
+            <trans-unit id="dashboard.workbench.withAltText">
+                <source>With alt text</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.quickLinks.title">
+                <source>Quick Actions</source>
+            </trans-unit>
+            <trans-unit id="dashboard.quickLinks.open">
+                <source>Open</source>
+            </trans-unit>
+            <trans-unit id="dashboard.quickLinks.bulk.description">
+                <source>Scan for missing alt text and generate alt text for images in bulk.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.quickLinks.history.description">
+                <source>Review generated alt text, errors, and retry activity.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.quickLinks.settings.description">
+                <source>Configure the API key, generation rules, and automation.</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.creditsPanel.title">
+                <source>Credit Balance</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credits.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credits.available">
+                <source>Available</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credits.used">
+                <source>Used</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credits.total">
+                <source>Total</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credits.paid">
+                <source>Paid</source>
+            </trans-unit>
+            <trans-unit id="dashboard.credits.free">
+                <source>Free</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.bulkQueuePanel.title">
+                <source>Generation Progress</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.stop">
+                <source>Stop</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.noPermission">
+                <source>You do not have permission to generate alt text or update file metadata.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.title">
+                <source>Live Generation Log</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.image">
+                <source>Image</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.result">
+                <source>Alt Text / Response</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.empty">
+                <source>Nothing generated yet. Click Generate Alt Text to see live results appear here.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.success">
+                <source>Success</source>
+            </trans-unit>
+            <trans-unit id="dashboard.bulkQueue.liveLog.failed">
+                <source>Failed</source>
+            </trans-unit>
+
+            <trans-unit id="bulk.intro">
+                <source>Scan your media library for images missing alt text and generate alt text for them in bulk.</source>
+            </trans-unit>
+            <trans-unit id="bulk.stats.shortAltText">
+                <source>Short Alt Text</source>
+            </trans-unit>
+            <trans-unit id="bulk.stats.availableCredits">
+                <source>Available Credits</source>
+            </trans-unit>
+
+            <trans-unit id="bulk.options.keywordsTitle">
+                <source>Keywords</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.title">
+                <source>Field Actions</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.intro">
+                <source>Choose an action for each metadata field. Generate creates new AI text, Keep leaves the current value unchanged, and Clear deletes the existing value.</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.field">
+                <source>Field</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.action">
+                <source>Action</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.altText">
+                <source>Alt Text</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.altTextHelp">
+                <source>Image description for SEO and accessibility</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.titleField">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.titleHelp">
+                <source>Media library title attribute</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.descriptionHelp">
+                <source>Attachment page long description</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.generate">
+                <source>Generate</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.keep">
+                <source>Keep</source>
+            </trans-unit>
+            <trans-unit id="bulk.fieldActions.clear">
+                <source>Clear</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.seoKeywords">
+                <source>SEO keywords</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.seoKeywordsPlaceholder">
+                <source>Keyword1, Keyword2</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.negativeKeywords">
+                <source>Negative keywords</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.negativeKeywordsPlaceholder">
+                <source>Keyword to avoid</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.keywordsHelp">
+                <source>Separate with commas. Use up to 6 keywords or phrases.</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.overwriteExisting">
+                <source>Include images with existing alt text and overwrite them</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.skipProcessed">
+                <source>Skip images already processed by AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.onlyShortAltText">
+                <source>Generate alt text only for images with short alt text</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.characterRange">
+                <source>(1-%1$d characters)</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.dimensionNote">
+                <source>Images smaller than 30x30 pixels are always skipped to avoid wasting credits on decorative icons.</source>
+            </trans-unit>
+            <trans-unit id="bulk.options.generateButton">
+                <source>Generate alt text for %1$d images</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.title">
+                <source>Start bulk generation?</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.subjectLabel">
+                <source>Images</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.subject">
+                <source>%1$d images</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.message.generateFields">
+                <source>AutoAlt.ai will generate: %1$s.</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.message.noGeneratedFields">
+                <source>No fields are set to Generate. Keep and Clear actions will be applied without creating generation history.</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.note.default">
+                <source>Stop finishes the current image, and completed changes are kept.</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.note.overwrite">
+                <source>Existing metadata may be overwritten. Stop finishes the current image, and completed changes are kept.</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.confirm">
+                <source>Start generation</source>
+            </trans-unit>
+            <trans-unit id="bulk.confirm.cancel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="bulk.stop.button">
+                <source>Stop generation</source>
+            </trans-unit>
+            <trans-unit id="bulk.stop.stopping">
+                <source>Stopping…</source>
+            </trans-unit>
+            <trans-unit id="bulk.stop.stopped">
+                <source>Generation stopped. Completed images remain saved.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.fixErrors">
+                <source>Fix the keyword validation errors before starting generation.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.seoTotal">
+                <source>SEO keywords must not exceed %1$d characters.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.negativeTotal">
+                <source>Negative keywords must not exceed %1$d characters.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.seoCount">
+                <source>SEO keywords can contain a maximum of %1$d keywords.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.negativeCount">
+                <source>Negative keywords can contain a maximum of %1$d keywords.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.seoKeywordLength">
+                <source>Each SEO keyword must be at most %1$d characters.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.negativeKeywordLength">
+                <source>Each negative keyword must be at most %1$d characters.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.seoDuplicates">
+                <source>SEO keywords contain duplicate values.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.negativeDuplicates">
+                <source>Negative keywords contain duplicate values.</source>
+            </trans-unit>
+            <trans-unit id="bulk.keywordValidation.conflict">
+                <source>Negative keywords must not match SEO keywords: %1$s.</source>
+            </trans-unit>
+            <trans-unit id="bulk.message.noApiKey">
+                <source>Configure an AutoAlt.ai API key before generating alt text.</source>
+            </trans-unit>
+            <trans-unit id="bulk.message.creditExhausted">
+                <source>You have run out of AutoAlt.ai credits. Add more credits to your account to continue.</source>
+            </trans-unit>
+            <trans-unit id="bulk.message.noneEligible">
+                <source>No eligible images were available to process.</source>
+            </trans-unit>
+            <trans-unit id="bulk.message.noneMatchingSelection">
+                <source>No matching images were found for the selected files.</source>
+            </trans-unit>
+            <trans-unit id="bulk.message.selectionTruncated">
+                <source>Only the first %1$d matching images were processed. Run the action again for the rest.</source>
+            </trans-unit>
+
+
+            <trans-unit id="ajax.noPermission">
+                <source>You do not have permission to generate alt text or update file metadata.</source>
+            </trans-unit>
+            <trans-unit id="ajax.processingFailed">
+                <source>Batch processing failed: %s</source>
+            </trans-unit>
+
+            <trans-unit id="single.button">
+                <source>Generate Alt Text - AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="single.invalidFile">
+                <source>The selected file could not be found.</source>
+            </trans-unit>
+            <trans-unit id="single.notAnImage">
+                <source>AutoAlt.ai can only generate alt text for images.</source>
+            </trans-unit>
+            <trans-unit id="single.noApiKey">
+                <source>Configure an AutoAlt.ai API key in Settings before generating alt text.</source>
+            </trans-unit>
+            <trans-unit id="single.success">
+                <source>Alt text generated. Remember to save the record.</source>
+            </trans-unit>
+            <trans-unit id="single.failed">
+                <source>Alt text generation failed.</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.defaultsPanel.title">
+                <source>Current Defaults</source>
+            </trans-unit>
+            <trans-unit id="dashboard.defaults.apiKey">
+                <source>API key</source>
+            </trans-unit>
+            <trans-unit id="dashboard.defaults.writingStyle">
+                <source>Writing style</source>
+            </trans-unit>
+            <trans-unit id="dashboard.defaults.imageExtensions">
+                <source>Image extensions</source>
+            </trans-unit>
+            <trans-unit id="dashboard.defaults.configured">
+                <source>Configured</source>
+            </trans-unit>
+            <trans-unit id="dashboard.defaults.missing">
+                <source>Missing</source>
+            </trans-unit>
+            <trans-unit id="dashboard.defaults.allExtensions">
+                <source>All supported image types</source>
+            </trans-unit>
+
+            <trans-unit id="js.processing">
+                <source>Processing images…</source>
+            </trans-unit>
+            <trans-unit id="js.stopping">
+                <source>Stopping after the current batch…</source>
+            </trans-unit>
+            <trans-unit id="js.requestFailed">
+                <source>Batch processing request failed.</source>
+            </trans-unit>
+            <trans-unit id="js.processingFailed">
+                <source>Batch processing failed.</source>
+            </trans-unit>
+            <trans-unit id="js.noneAvailable">
+                <source>No eligible images were available in this batch.</source>
+            </trans-unit>
+            <trans-unit id="js.complete">
+                <source>Bulk generation is complete.</source>
+            </trans-unit>
+            <trans-unit id="js.creditExhausted">
+                <source>You have run out of AutoAlt.ai credits. Add more credits to your account to continue.</source>
+            </trans-unit>
+
+            <trans-unit id="settings.title">
+                <source>Settings</source>
+            </trans-unit>
+            <trans-unit id="settings.intro">
+                <source>Configure the AutoAlt.ai connection, generation rules, and filters.</source>
+            </trans-unit>
+            <trans-unit id="settings.nav.dashboard">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="settings.nav.apiKeys">
+                <source>Visit AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="settings.credits.short">
+                <source>Credits</source>
+            </trans-unit>
+            <trans-unit id="settings.saved">
+                <source>Settings saved.</source>
+            </trans-unit>
+            <trans-unit id="settings.saved.description">
+                <source>Your AutoAlt.ai settings have been saved successfully.</source>
+            </trans-unit>
+            <trans-unit id="settings.noPermission">
+                <source>You do not have permission to change global AutoAlt.ai settings.</source>
+            </trans-unit>
+            <trans-unit id="settings.apiKeyPlaceholder.configured">
+                <source>Configured - leave blank to keep current key</source>
+            </trans-unit>
+            <trans-unit id="settings.apiKeyPlaceholder.empty">
+                <source>Paste your AutoAlt.ai API key</source>
+            </trans-unit>
+            <trans-unit id="connect.title">
+                <source>Welcome to AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="connect.subtitle">
+                <source>Generate AI alt text faster with your AutoAlt.ai account.</source>
+            </trans-unit>
+            <trans-unit id="connect.card.connect.title">
+                <source>Connect API Key</source>
+            </trans-unit>
+            <trans-unit id="connect.card.connect.subtitle">
+                <source>Already have an API key?</source>
+            </trans-unit>
+            <trans-unit id="connect.field.apiKeyPlaceholder">
+                <source>Paste your AutoAlt.ai API key</source>
+            </trans-unit>
+            <trans-unit id="connect.action.show">
+                <source>Show</source>
+            </trans-unit>
+            <trans-unit id="connect.action.hide">
+                <source>Hide</source>
+            </trans-unit>
+            <trans-unit id="connect.action.connectAndSave">
+                <source>Connect &amp; Save</source>
+            </trans-unit>
+            <trans-unit id="connect.action.connecting">
+                <source>Connecting…</source>
+            </trans-unit>
+            <trans-unit id="connect.action.connected">
+                <source>Connected</source>
+            </trans-unit>
+            <trans-unit id="connect.action.clearApiKey">
+                <source>Clear API Key</source>
+            </trans-unit>
+            <trans-unit id="connect.clearConfirm.title">
+                <source>Clear the API key?</source>
+            </trans-unit>
+            <trans-unit id="connect.clearConfirm.subjectLabel">
+                <source>Connection</source>
+            </trans-unit>
+            <trans-unit id="connect.clearConfirm.subject">
+                <source>AutoAlt.ai API key</source>
+            </trans-unit>
+            <trans-unit id="connect.clearConfirm">
+                <source>You will need to reconnect to AutoAlt.ai before generating alt text again.</source>
+            </trans-unit>
+            <trans-unit id="connect.apiKeyConnected">
+                <source>API key connected successfully.</source>
+            </trans-unit>
+            <trans-unit id="connect.apiKeyCleared">
+                <source>API key has been cleared.</source>
+            </trans-unit>
+            <trans-unit id="connect.credit.usage">
+                <source>Your Credit Current Balance is %1$s / %2$s.</source>
+            </trans-unit>
+            <trans-unit id="connect.credit.getMore">
+                <source>Get additional credits from AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="connect.card.register.title">
+                <source>Login / Register</source>
+            </trans-unit>
+            <trans-unit id="connect.card.register.subtitle">
+                <source>New user? Get your API key</source>
+            </trans-unit>
+            <trans-unit id="connect.field.emailPlaceholder">
+                <source>Enter Email ID</source>
+            </trans-unit>
+            <trans-unit id="connect.action.sendCode">
+                <source>Send Verification Code</source>
+            </trans-unit>
+            <trans-unit id="connect.action.sending">
+                <source>Sending…</source>
+            </trans-unit>
+            <trans-unit id="connect.action.verifyOtp">
+                <source>Verify OTP</source>
+            </trans-unit>
+            <trans-unit id="connect.action.verifying">
+                <source>Verifying…</source>
+            </trans-unit>
+            <trans-unit id="connect.action.changeEmail">
+                <source>Change email</source>
+            </trans-unit>
+            <trans-unit id="connect.otp.expiresIn">
+                <source>OTP expires in</source>
+            </trans-unit>
+            <trans-unit id="connect.otp.expired">
+                <source>The verification code has expired. Please request a new one.</source>
+            </trans-unit>
+            <trans-unit id="connect.action.resend">
+                <source>Resend verification code</source>
+            </trans-unit>
+            <trans-unit id="connect.otpSent">
+                <source>OTP sent to your email.</source>
+            </trans-unit>
+            <trans-unit id="connect.otpVerified">
+                <source>API key verified and saved successfully.</source>
+            </trans-unit>
+            <trans-unit id="connect.error.invalidEmail">
+                <source>Please enter a valid email address.</source>
+            </trans-unit>
+            <trans-unit id="connect.error.emptyKey">
+                <source>Enter an API key before connecting.</source>
+            </trans-unit>
+            <trans-unit id="connect.error.invalidKey">
+                <source>This API key could not be verified. Check the key and try again.</source>
+            </trans-unit>
+            <trans-unit id="connect.error.otpRequired">
+                <source>Enter the verification code.</source>
+            </trans-unit>
+            <trans-unit id="connect.error.otpFormat">
+                <source>The verification code must be 6 digits.</source>
+            </trans-unit>
+            <trans-unit id="connect.error.otpVerifyFailed">
+                <source>The verification code could not be confirmed. Please try again.</source>
+            </trans-unit>
+
+            <trans-unit id="settings.field.enabled">
+                <source>Enable AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="settings.connectionState.connected">
+                <source>Connected</source>
+            </trans-unit>
+            <trans-unit id="settings.connectionState.needsApiKey">
+                <source>API key required</source>
+            </trans-unit>
+            <trans-unit id="settings.credit.usage">
+                <source>%1$s of %2$s credits available</source>
+            </trans-unit>
+            <trans-unit id="settings.credit.low">
+                <source>Running low on credits.</source>
+            </trans-unit>
+            <trans-unit id="settings.credit.upgrade">
+                <source>Upgrade plan</source>
+            </trans-unit>
+            <trans-unit id="settings.status.connection">
+                <source>Connection</source>
+            </trans-unit>
+            <trans-unit id="settings.status.credits">
+                <source>Credits</source>
+            </trans-unit>
+            <trans-unit id="settings.status.stored">
+                <source>Stored settings</source>
+            </trans-unit>
+            <trans-unit id="settings.summary.title">
+                <source>Quick summary</source>
+            </trans-unit>
+            <trans-unit id="settings.summary.intro">
+                <source>A compact overview of the current configuration.</source>
+            </trans-unit>
+            <trans-unit id="settings.summary.connection">
+                <source>Connection status</source>
+            </trans-unit>
+            <trans-unit id="settings.summary.formats">
+                <source>Formats</source>
+            </trans-unit>
+            <trans-unit id="settings.summary.allFormats">
+                <source>All supported formats</source>
+            </trans-unit>
+
+            <trans-unit id="settings.section.generationDefaults">
+                <source>Generation Defaults</source>
+            </trans-unit>
+            <trans-unit id="settings.field.writingStyle">
+                <source>Writing style</source>
+            </trans-unit>
+            <trans-unit id="settings.field.minLength">
+                <source>Minimum characters</source>
+            </trans-unit>
+            <trans-unit id="settings.field.maxLength">
+                <source>Maximum characters</source>
+            </trans-unit>
+            <trans-unit id="settings.length.title">
+                <source>Alt text length</source>
+            </trans-unit>
+            <trans-unit id="settings.length.description">
+                <source>Control how concise or descriptive each generated alt text should be.</source>
+            </trans-unit>
+            <trans-unit id="settings.length.minimumHint">
+                <source>Shortest acceptable result</source>
+            </trans-unit>
+            <trans-unit id="settings.length.maximumHint">
+                <source>Longest acceptable result</source>
+            </trans-unit>
+            <trans-unit id="settings.length.characters">
+                <source>characters</source>
+            </trans-unit>
+            <trans-unit id="settings.length.recommended">
+                <source>Recommended: 125-150 characters.</source>
+            </trans-unit>
+            <trans-unit id="settings.length.seoStatus.optimal">
+                <source>Optimal</source>
+            </trans-unit>
+            <trans-unit id="settings.length.seoStatus.long">
+                <source>Long</source>
+            </trans-unit>
+            <trans-unit id="settings.length.seoStatus.short">
+                <source>Short</source>
+            </trans-unit>
+            <trans-unit id="settings.field.prefix">
+                <source>Insert before the alt text</source>
+            </trans-unit>
+            <trans-unit id="settings.field.suffix">
+                <source>Insert after the alt text</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.title">
+                <source>Prefix and suffix</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.description">
+                <source>Add consistent text before or after every generated alt text.</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.prefixHint">
+                <source>Placed at the beginning</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.suffixHint">
+                <source>Placed at the end</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.optional">
+                <source>Optional</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.preview">
+                <source>Example</source>
+            </trans-unit>
+            <trans-unit id="settings.affix.previewText">
+                <source>Generated alt text</source>
+            </trans-unit>
+            <trans-unit id="settings.field.generateTitle">
+                <source>Also generate a title</source>
+            </trans-unit>
+            <trans-unit id="settings.field.generateDescription">
+                <source>Also generate a description</source>
+            </trans-unit>
+            <trans-unit id="settings.section.seo">
+                <source>SEO Guidance</source>
+            </trans-unit>
+            <trans-unit id="settings.field.seoKeywords">
+                <source>SEO keywords</source>
+            </trans-unit>
+            <trans-unit id="settings.field.negativeKeywords">
+                <source>Negative keywords</source>
+            </trans-unit>
+            <trans-unit id="settings.field.customPrompt">
+                <source>Custom instructions</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.description">
+                <source>Guide the AI toward relevant wording and away from terms that do not fit your content.</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.keywordsHint">
+                <source>Words or phrases to emphasize</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.keywordsPlaceholder">
+                <source>e.g. sustainable, handmade, premium</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.negativeKeywordsHint">
+                <source>Words or phrases the AI should avoid</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.negativeKeywordsPlaceholder">
+                <source>e.g. cheap, generic, stock photo</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.separateWithCommas">
+                <source>Separate entries with commas</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.keywordCount">
+                <source>%1$d / 6 keywords</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.customPromptHint">
+                <source>Add specific context, tone, or requirements for every generated alt text.</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.customPromptPlaceholder">
+                <source>e.g. Mention the product material and describe the setting in a natural sentence.</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.customPromptTip">
+                <source>Keep instructions clear and concise for more consistent results.</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.characterCount">
+                <source>%1$d characters</source>
+            </trans-unit>
+            <trans-unit id="settings.seo.customPromptCharacterCount">
+                <source>%1$d / %2$d characters</source>
+            </trans-unit>
+            <trans-unit id="settings.validation.customPromptTooLong">
+                <source>Custom instructions must not exceed %1$d characters.</source>
+            </trans-unit>
+
+            <trans-unit id="settings.section.automation">
+                <source>Automation &amp; Filters</source>
+            </trans-unit>
+            <trans-unit id="settings.field.autoGenerateOnUpload">
+                <source>Auto-generate on upload</source>
+            </trans-unit>
+            <trans-unit id="settings.field.overwriteExistingAltText">
+                <source>Overwrite existing alt text</source>
+            </trans-unit>
+            <trans-unit id="settings.field.allowedImageExtensions">
+                <source>Which image formats should be processed?</source>
+            </trans-unit>
+            <trans-unit id="settings.field.allowedImageExtensionsHelp">
+                <source>Leave all unselected to process every image format.</source>
+            </trans-unit>
+            <trans-unit id="settings.field.shortAltTextLength">
+                <source>Short alt text length</source>
+            </trans-unit>
+
+            <trans-unit id="settings.section.notifications">
+                <source>Notifications</source>
+            </trans-unit>
+            <trans-unit id="settings.field.notifyOnBulkComplete">
+                <source>Send an email when a bulk job finishes</source>
+            </trans-unit>
+            <trans-unit id="settings.field.notificationEmail">
+                <source>Notification email address</source>
+            </trans-unit>
+            <trans-unit id="settings.field.notificationEmailHelp">
+                <source>Sent when a bulk generation run finishes.</source>
+            </trans-unit>
+
+            <trans-unit id="settings.section.errorLogs">
+                <source>Error Logs</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.description">
+                <source>Review recent API and processing issues from this extension.</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clear">
+                <source>Clear logs</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.cleared">
+                <source>Error logs cleared.</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clearedDescription">
+                <source>All stored AutoAlt.ai error log entries have been removed.</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.latest">
+                <source>Showing up to the latest %1$d entries.</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.emptyTitle">
+                <source>Everything looks good</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.empty">
+                <source>No error logs yet. Recent plugin warnings and API issues will appear here.</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clearConfirm.title">
+                <source>Clear all error logs?</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clearConfirm.subjectLabel">
+                <source>Logs</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clearConfirm.subject">
+                <source>All recent error entries</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clearConfirm.message">
+                <source>This removes the stored API and processing issues from the Error Logs panel.</source>
+            </trans-unit>
+            <trans-unit id="settings.errorLogs.clearConfirm.note">
+                <source>This action cannot be undone.</source>
+            </trans-unit>
+
+            <trans-unit id="settings.action.cancel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="settings.action.save">
+                <source>Save settings</source>
+            </trans-unit>
+
+            <trans-unit id="settings.writingStyle.default">
+                <source>Use account default</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.neutral">
+                <source>Neutral – Clear, balanced, and objective</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.friendly">
+                <source>Friendly – Warm, approachable, and informal</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.professional">
+                <source>Professional – Polished and business-appropriate</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.casual">
+                <source>Casual – Laid-back and conversational</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.witty">
+                <source>Witty – Clever, playful, with light humor</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.confident">
+                <source>Confident – Assertive and bold</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.empathetic">
+                <source>Empathetic – Sensitive and understanding</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.inspiring">
+                <source>Inspiring – Motivational and uplifting</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.technical">
+                <source>Technical – Precise, jargon-friendly, and expert-level</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.minimalist">
+                <source>Minimalist – Simple, clean, and concise</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.luxury">
+                <source>Luxury – Elegant and premium-sounding</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.youthful">
+                <source>Youthful – Trendy, fresh, and informal</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.quirky">
+                <source>Quirky – Fun, offbeat, and creative</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.persuasive">
+                <source>Persuasive – Convincing and sales-driven</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.playful">
+                <source>Playful – Light, cheerful, and energetic</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.storytelling">
+                <source>Storytelling – Narrative and engaging</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.elegant">
+                <source>Elegant – Refined and graceful</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.bold">
+                <source>Bold – Strong, impactful, and direct</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.humorous">
+                <source>Humorous – Funny and entertaining</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.descriptive">
+                <source>Descriptive – Rich in detail and imagery</source>
+            </trans-unit>
+            <trans-unit id="settings.writingStyle.brandCentric">
+                <source>Brand-centric – Tailored to your brand voice</source>
+            </trans-unit>
+
+            <trans-unit id="settings.shortAltTextLength.20">
+                <source>1-20 characters</source>
+            </trans-unit>
+            <trans-unit id="settings.shortAltTextLength.30">
+                <source>1-30 characters</source>
+            </trans-unit>
+            <trans-unit id="settings.shortAltTextLength.40">
+                <source>1-40 characters</source>
+            </trans-unit>
+            <trans-unit id="settings.shortAltTextLength.50">
+                <source>1-50 characters</source>
+            </trans-unit>
+
+            <trans-unit id="history.title">
+                <source>History</source>
+            </trans-unit>
+            <trans-unit id="history.intro">
+                <source>Review generated alt text, errors, and retry activity across bulk generation and upload automation.</source>
+            </trans-unit>
+            <trans-unit id="history.nav.dashboard">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="history.stat.total">
+                <source>Total entries</source>
+            </trans-unit>
+            <trans-unit id="history.stat.successful">
+                <source>Successful</source>
+            </trans-unit>
+            <trans-unit id="history.stat.failed">
+                <source>Failed</source>
+            </trans-unit>
+            <trans-unit id="history.panel.title">
+                <source>Generation History</source>
+            </trans-unit>
+            <trans-unit id="history.filter.status.all">
+                <source>All statuses</source>
+            </trans-unit>
+            <trans-unit id="history.filter.status.success">
+                <source>Success</source>
+            </trans-unit>
+            <trans-unit id="history.filter.status.failed">
+                <source>Failed</source>
+            </trans-unit>
+            <trans-unit id="history.filter.source.all">
+                <source>All sources</source>
+            </trans-unit>
+            <trans-unit id="history.filter.source.bulk">
+                <source>Bulk generation</source>
+            </trans-unit>
+            <trans-unit id="history.filter.source.upload">
+                <source>Auto upload</source>
+            </trans-unit>
+            <trans-unit id="history.filter.source.manual">
+                <source>Manual</source>
+            </trans-unit>
+            <trans-unit id="history.filter.source.selection">
+                <source>File list selection</source>
+            </trans-unit>
+            <trans-unit id="history.filter.language.all">
+                <source>All languages</source>
+            </trans-unit>
+            <trans-unit id="history.filter.search.label">
+                <source>Search images</source>
+            </trans-unit>
+            <trans-unit id="history.filter.search.placeholder">
+                <source>Filename...</source>
+            </trans-unit>
+            <trans-unit id="history.filter.language.label">
+                <source>Language</source>
+            </trans-unit>
+            <trans-unit id="history.filter.submit">
+                <source>Filter</source>
+            </trans-unit>
+            <trans-unit id="history.filter.status.label">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="history.filter.source.label">
+                <source>Source</source>
+            </trans-unit>
+            <trans-unit id="history.table.imageDetails">
+                <source>Image Details &amp; Language</source>
+            </trans-unit>
+            <trans-unit id="history.table.idLabel">
+                <source>ID:</source>
+            </trans-unit>
+            <trans-unit id="history.table.result">
+                <source>Result</source>
+            </trans-unit>
+            <trans-unit id="history.result.altText">
+                <source>Alt text</source>
+            </trans-unit>
+            <trans-unit id="history.result.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="history.result.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="history.badge.success">
+                <source>Success</source>
+            </trans-unit>
+            <trans-unit id="history.badge.failed">
+                <source>Failed</source>
+            </trans-unit>
+            <trans-unit id="history.action.retry">
+                <source>Retry</source>
+            </trans-unit>
+            <trans-unit id="history.action.edit">
+                <source>Edit</source>
+            </trans-unit>
+            <trans-unit id="history.action.cancel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="history.action.save">
+                <source>Save</source>
+            </trans-unit>
+            <trans-unit id="history.edit.saving">
+                <source>Saving…</source>
+            </trans-unit>
+            <trans-unit id="history.edit.updated">
+                <source>Alt text updated.</source>
+            </trans-unit>
+            <trans-unit id="history.edit.title.updated">
+                <source>Title updated.</source>
+            </trans-unit>
+            <trans-unit id="history.edit.description.updated">
+                <source>Description updated.</source>
+            </trans-unit>
+            <trans-unit id="history.edit.empty">
+                <source>Alt text cannot be empty.</source>
+            </trans-unit>
+            <trans-unit id="history.edit.failed">
+                <source>Could not save. Please try again.</source>
+            </trans-unit>
+            <trans-unit id="history.edit.invalid">
+                <source>This entry could not be updated.</source>
+            </trans-unit>
+            <trans-unit id="history.pagination.previous">
+                <source>Previous</source>
+            </trans-unit>
+            <trans-unit id="history.pagination.next">
+                <source>Next</source>
+            </trans-unit>
+            <trans-unit id="history.pagination.page">
+                <source>Page %1$d of %2$d</source>
+            </trans-unit>
+            <trans-unit id="history.empty">
+                <source>No generation history yet. Entries appear here after bulk processing or upload automation runs.</source>
+            </trans-unit>
+            <trans-unit id="history.retry.success">
+                <source>The image was regenerated successfully.</source>
+            </trans-unit>
+            <trans-unit id="history.retry.failure">
+                <source>The image could not be regenerated. It may no longer exist, or the API request failed.</source>
+            </trans-unit>
+            <trans-unit id="history.retry.noPermission">
+                <source>You do not have permission to retry AutoAlt.ai generation.</source>
+            </trans-unit>
+
+            <trans-unit id="selection.noFiles">
+                <source>Select at least one file or folder before generating alt text.</source>
+            </trans-unit>
+
+            <trans-unit id="filelist.selection.button">
+                <source>Generate Alt Text - AutoAlt.ai</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.noImages">
+                <source>Select at least one image or folder. Other file types are skipped.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.title">
+                <source>Generate alt text for selected images?</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.subjectLabel">
+                <source>Images</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.subject">
+                <source>%1$d selected</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.cancel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.ok">
+                <source>Generate alt text</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.running">
+                <source>Generating alt text…</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.failed">
+                <source>Alt text generation failed.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.done">
+                <source>%1$d generated, %2$d failed.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.resolving">
+                <source>Finding images…</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.resolveFailed">
+                <source>Could not resolve the selected images.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.note">
+                <source>Existing alt text will be overwritten. Keep this browser tab open until processing finishes.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.confirm.truncatedNote">
+                <source>Only the first %d matching images will be processed - your selection contains more. Run this again afterwards for the rest.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.progress.label">
+                <source>%1$d of %2$d processed</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.beforeunload">
+                <source>AutoAlt.ai is still generating alt text. Anything not yet processed will be skipped if you leave now.</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.stoppedEarly">
+                <source>Stopped after %1$d of %2$d images: %3$s</source>
+            </trans-unit>
+            <trans-unit id="filelist.selection.creditExhausted">
+                <source>You have run out of AutoAlt.ai credits. Add more credits to your account to continue.</source>
+            </trans-unit>
+
+            <trans-unit id="module.rename.title"><source>Bulk Rename Images</source></trans-unit>
+            <trans-unit id="module.rename.shortDescription"><source>Audit and rename image filenames</source></trans-unit>
+            <trans-unit id="module.rename.description"><source>Review weak filenames, rename images individually or in bulk, and undo previous renames.</source></trans-unit>
+            <trans-unit id="rename.intro"><source>Review weak filenames, rename images individually or in bulk, and undo previous renames.</source></trans-unit>
+            <trans-unit id="rename.intro.improved"><source>Find weak filenames, review image details, rename safely, and undo previous changes from one place.</source></trans-unit>
+            <trans-unit id="rename.stats.total"><source>Total Images</source></trans-unit>
+            <trans-unit id="rename.stats.poor"><source>Poor File Names</source></trans-unit>
+            <trans-unit id="rename.stats.attention"><source>Needs Attention</source></trans-unit>
+            <trans-unit id="rename.stats.renamed"><source>Renamed Images</source></trans-unit>
+            <trans-unit id="rename.stats.credits"><source>Available Credits</source></trans-unit>
+            <trans-unit id="rename.stats.total.detail"><source>Across all configured storages</source></trans-unit>
+            <trans-unit id="rename.stats.poor.detail"><source>%1$d%% have weak filenames</source></trans-unit>
+            <trans-unit id="rename.stats.renamed.detail"><source>%1$d%% of the library improved</source></trans-unit>
+            <trans-unit id="rename.credits.short"><source>credits</source></trans-unit>
+            <trans-unit id="rename.audit.title"><source>Filename Audit</source></trans-unit>
+            <trans-unit id="rename.audit.description"><source>Review weak filenames, rename images individually, or undo the last rename.</source></trans-unit>
+            <trans-unit id="rename.audit.description.improved"><source>Review filename quality and a complete, reversible history of changes.</source></trans-unit>
+            <trans-unit id="rename.tab.poor"><source>Images with Poor Names</source></trans-unit>
+            <trans-unit id="rename.tab.all"><source>All Images</source></trans-unit>
+            <trans-unit id="rename.tab.history"><source>Rename History</source></trans-unit>
+            <trans-unit id="rename.search.placeholder"><source>Search by filename or ID...</source></trans-unit>
+            <trans-unit id="rename.filters.title"><source>Filters</source></trans-unit>
+            <trans-unit id="rename.filters.referenced"><source>Referenced images only</source></trans-unit>
+            <trans-unit id="rename.filters.referenced.help"><source>Show only files currently referenced by TYPO3 content or records.</source></trans-unit>
+            <trans-unit id="rename.filters.processed"><source>Skip processed by AutoAlt.ai</source></trans-unit>
+            <trans-unit id="rename.filters.processed.help"><source>Show only images that have not previously been renamed by AutoAlt.ai.</source></trans-unit>
+            <trans-unit id="rename.column.selectAll"><source>Select all visible eligible images</source></trans-unit>
+            <trans-unit id="rename.column.uid"><source>UID</source></trans-unit>
+            <trans-unit id="rename.column.image"><source>Image</source></trans-unit>
+            <trans-unit id="rename.column.imageDetails"><source>Image details</source></trans-unit>
+            <trans-unit id="rename.column.filename"><source>Filename</source></trans-unit>
+            <trans-unit id="rename.column.path"><source>File identifier or relative path</source></trans-unit>
+            <trans-unit id="rename.column.status"><source>Status</source></trans-unit>
+            <trans-unit id="rename.column.actions"><source>Actions</source></trans-unit>
+            <trans-unit id="rename.status.good"><source>Good filename</source></trans-unit>
+            <trans-unit id="rename.status.poor"><source>Poor filename</source></trans-unit>
+            <trans-unit id="rename.status.renamed"><source>Renamed by AutoAlt.ai</source></trans-unit>
+            <trans-unit id="rename.status.unsupported"><source>Unsupported</source></trans-unit>
+            <trans-unit id="rename.status.read_only"><source>Read-only storage</source></trans-unit>
+            <trans-unit id="rename.status.error"><source>Error</source></trans-unit>
+            <trans-unit id="rename.action.manual"><source>Manual Rename</source></trans-unit>
+            <trans-unit id="rename.action.ai"><source>AI Rename</source></trans-unit>
+            <trans-unit id="rename.action.undo"><source>Undo</source></trans-unit>
+            <trans-unit id="rename.action.open"><source>Open</source></trans-unit>
+            <trans-unit id="rename.action.confirm"><source>Confirm</source></trans-unit>
+            <trans-unit id="rename.action.cancel"><source>Cancel</source></trans-unit>
+            <trans-unit id="rename.manual.current"><source>Current filename</source></trans-unit>
+            <trans-unit id="rename.manual.preview"><source>Normalized filename preview</source></trans-unit>
+            <trans-unit id="rename.manual.invalid"><source>Invalid filename</source></trans-unit>
+            <trans-unit id="rename.bulk.selected"><source>AI Rename Selected (%1$d)</source></trans-unit>
+            <trans-unit id="rename.bulk.visible"><source>AI Rename Visible (%1$d)</source></trans-unit>
+            <trans-unit id="rename.bulk.done"><source>%1$d successful, %2$d failed, %3$d skipped.</source></trans-unit>
+            <trans-unit id="rename.progress.label"><source>%1$d of %2$d processed</source></trans-unit>
+            <trans-unit id="rename.progress.summary"><source>%1$d successful · %2$d failed · %3$d skipped</source></trans-unit>
+            <trans-unit id="rename.confirm.imageLabel"><source>Image</source></trans-unit>
+            <trans-unit id="rename.confirm.ai.title"><source>Rename this image with AI?</source></trans-unit>
+            <trans-unit id="rename.confirm.ai.note"><source>This action may use 1 credit. You can undo the rename from Rename History.</source></trans-unit>
+            <trans-unit id="rename.confirm.ai.action"><source>Rename with AI</source></trans-unit>
+            <trans-unit id="rename.confirm.undo.title"><source>Undo this rename?</source></trans-unit>
+            <trans-unit id="rename.confirm.undo.message"><source>The immediately previous filename will be restored and TYPO3 file references will remain connected.</source></trans-unit>
+            <trans-unit id="rename.confirm.undo.note"><source>This action does not use an API credit.</source></trans-unit>
+            <trans-unit id="rename.confirm.undo.action"><source>Undo rename</source></trans-unit>
+            <trans-unit id="rename.confirm.bulk.title"><source>Rename these images with AI?</source></trans-unit>
+            <trans-unit id="rename.confirm.bulk.message"><source>%1$d images will be renamed one at a time with SEO-friendly filenames.</source></trans-unit>
+            <trans-unit id="rename.confirm.bulk.note"><source>Keep this tab open until processing finishes. Up to %1$d credits may be used.</source></trans-unit>
+            <trans-unit id="rename.confirm.bulk.action"><source>Rename %1$d images</source></trans-unit>
+            <trans-unit id="rename.message.manualSuccess"><source>Filename updated successfully.</source></trans-unit>
+            <trans-unit id="rename.message.aiSuccess"><source>AI filename generated and applied successfully.</source></trans-unit>
+            <trans-unit id="rename.message.undoSuccess"><source>Image rename undone successfully.</source></trans-unit>
+            <trans-unit id="rename.message.failed"><source>The image could not be renamed.</source></trans-unit>
+            <trans-unit id="rename.empty"><source>No images match the selected tab, search, and filters.</source></trans-unit>
+            <trans-unit id="rename.empty.title"><source>No matching images</source></trans-unit>
+            <trans-unit id="rename.itemsPerPage"><source>Items per page:</source></trans-unit>
+            <trans-unit id="rename.pagination.label"><source>Table pages</source></trans-unit>
+            <trans-unit id="rename.pagination.previous"><source>Previous page</source></trans-unit>
+            <trans-unit id="rename.pagination.next"><source>Next page</source></trans-unit>
+            <trans-unit id="rename.pagination.previousShort"><source>Prev</source></trans-unit>
+            <trans-unit id="rename.pagination.nextShort"><source>Next</source></trans-unit>
+            <trans-unit id="rename.pagination.images"><source>Showing %1$d–%2$d of %3$d images</source></trans-unit>
+            <trans-unit id="rename.pagination.history"><source>Showing %1$d–%2$d of %3$d history entries</source></trans-unit>
+            <trans-unit id="rename.history.original"><source>Original filename</source></trans-unit>
+            <trans-unit id="rename.history.new"><source>New filename</source></trans-unit>
+            <trans-unit id="rename.history.change"><source>Filename change</source></trans-unit>
+            <trans-unit id="rename.history.method"><source>Method</source></trans-unit>
+            <trans-unit id="rename.history.date"><source>Rename date</source></trans-unit>
+            <trans-unit id="rename.history.user"><source>Backend user</source></trans-unit>
+            <trans-unit id="rename.method.ai"><source>AI</source></trans-unit>
+            <trans-unit id="rename.method.manual"><source>Manual</source></trans-unit>
+            <trans-unit id="rename.method.undo"><source>Undo</source></trans-unit>
+
+        </body>
+    </file>
+</xliff>

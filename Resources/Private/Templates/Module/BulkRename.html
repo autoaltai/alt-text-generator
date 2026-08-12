@@ -1,0 +1,238 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<f:asset.module identifier="@autoaltai/alt-text-generator/bulk-rename.js"/>
+<div class="autoalt-module autoalt-workspace" data-autoalt-page="rename" data-autoalt-bulk-rename
+     data-manual-url="{manualRenameUrl}" data-ai-url="{aiRenameUrl}" data-undo-url="{undoRenameUrl}">
+    <nav class="autoalt-primary-nav autoalt-rename-primary-nav" aria-label="AutoAlt.ai">
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--generate" href="{bulkUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#10022;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.bulk"/></a>
+        <span class="autoalt-primary-nav__item autoalt-primary-nav__item--rename" aria-current="page"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9998;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.rename"/></span>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--history" href="{historyUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#8634;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.history"/></a>
+        <a class="autoalt-primary-nav__item autoalt-primary-nav__item--settings" href="{settingsUrl}"><span class="autoalt-primary-nav__icon" aria-hidden="true">&#9881;</span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:nav.settings"/></a>
+    </nav>
+
+    <header class="autoalt-page-hero autoalt-rename-hero">
+        <div>
+            <p class="autoalt-module__eyebrow"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:dashboard.eyebrow"/></p>
+            <h1 class="autoalt-module__title"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:module.rename.title"/></h1>
+            <p class="autoalt-module__intro"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.intro.improved"/></p>
+        </div>
+        <div class="autoalt-page-hero__actions autoalt-rename-hero__actions">
+            <span class="autoalt-credit-pill">
+                <span class="autoalt-credit-pill__icon" aria-hidden="true">&#9889;</span>
+                <f:if condition="{creditSummary.hasCreditData}">
+                    <f:then><strong>{creditSummary.cardValue}</strong> <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.credits.short"/></f:then>
+                    <f:else>{creditSummary.status}</f:else>
+                </f:if>
+            </span>
+            <f:if condition="{showBulkActions}">
+                <button class="btn autoalt-btn-brand autoalt-page-hero__primary autoalt-rename-hero__primary" type="button" data-role="rename-visible"{f:if(condition: visibleEligibleCount, else: ' disabled="disabled"') -> f:format.raw()}>
+                    <span aria-hidden="true">+</span>
+                    <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.bulk.visible" arguments="{0: visibleEligibleCount}"/>
+                </button>
+            </f:if>
+        </div>
+    </header>
+
+    <div class="autoalt-dashboard-grid autoalt-workspace-stats autoalt-rename-stats">
+        <section class="autoalt-stat-card autoalt-stat-card--neutral">
+            <div class="autoalt-stat-card__topline">
+                <div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.total"/></div>
+                <span class="autoalt-stat-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <rect x="3.5" y="4.5" width="17" height="15" rx="2"></rect>
+                        <circle cx="8.5" cy="9.5" r="1.5"></circle>
+                        <path d="M5.5 17l4.2-4.3 3.2 3.1 2.3-2.2 3.3 3.4"></path>
+                    </svg>
+                </span>
+            </div>
+            <div class="autoalt-stat-card__value">{statistics.total}</div>
+            <p class="autoalt-stat-card__detail"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.total.detail"/></p>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--danger">
+            <div class="autoalt-stat-card__topline">
+                <div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.attention"/></div>
+                <span class="autoalt-stat-card__icon" aria-hidden="true">!</span>
+            </div>
+            <div class="autoalt-stat-card__value">{statistics.poor}</div>
+            <p class="autoalt-stat-card__detail"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.poor.detail" arguments="{0: statistics.poorPercent}"/></p>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--success">
+            <div class="autoalt-stat-card__topline">
+                <div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.renamed"/></div>
+                <span class="autoalt-stat-card__icon" aria-hidden="true">&#10003;</span>
+            </div>
+            <div class="autoalt-stat-card__value">{statistics.renamed}</div>
+            <p class="autoalt-stat-card__detail"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.renamed.detail" arguments="{0: statistics.renamedPercent}"/></p>
+            <div class="autoalt-stat-card__progress" aria-hidden="true"><span style="width: {statistics.renamedPercent}%"></span></div>
+        </section>
+        <section class="autoalt-stat-card autoalt-stat-card--warning">
+            <div class="autoalt-stat-card__topline">
+                <div class="autoalt-stat-card__label"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.stats.credits"/></div>
+                <span class="autoalt-stat-card__icon" aria-hidden="true">&#9889;</span>
+            </div>
+            <div class="autoalt-stat-card__value">{creditSummary.cardValue}</div>
+            <p class="autoalt-stat-card__detail">{creditSummary.cardDetail}</p>
+        </section>
+    </div>
+
+    <section class="autoalt-panel autoalt-rename-audit">
+        <div class="autoalt-panel__header autoalt-rename-audit__heading">
+            <div>
+                <h2><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.audit.title"/></h2>
+                <p class="autoalt-field__help"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.audit.description.improved"/></p>
+            </div>
+            <f:if condition="{showBulkActions}">
+                <button class="btn btn-default" type="button" data-role="rename-selected" disabled="disabled">
+                    <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.bulk.selected" arguments="{0: 0}"/>
+                </button>
+            </f:if>
+        </div>
+
+        <div class="autoalt-rename-toolbar">
+            <nav class="autoalt-tabs" aria-label="Filename audit">
+                <f:for each="{tabs}" as="tab">
+                    <a class="autoalt-tabs__item{f:if(condition: tab.active, then: ' autoalt-tabs__item--active')}" href="{tab.url}"{f:if(condition: tab.active, then: ' aria-current="page"') -> f:format.raw()}>
+                        <f:translate key="{tab.labelKey}"/>
+                        <span class="autoalt-tabs__count">{tab.count}</span>
+                    </a>
+                </f:for>
+            </nav>
+            <form action="{formUrl}" method="get" class="autoalt-rename-search"
+                  data-global-event="submit" data-action-navigate="$form=~s/$value/"
+                  data-navigate-value="{searchNavigationUrl}" data-value-selector="input[name='search']">
+                <input type="hidden" name="tab" value="{filter.tab}">
+                <input type="hidden" name="limit" value="{filter.limit}">
+                <label class="visually-hidden" for="autoalt-rename-search"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.search.placeholder"/></label>
+                <input class="form-control" id="autoalt-rename-search" type="search" name="search" value="{filter.search}"
+                       placeholder="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.search.placeholder')}">
+            </form>
+        </div>
+
+        <div class="autoalt-rename-progress" data-role="progress" hidden="hidden">
+            <div class="autoalt-progress__meta"><span data-role="progress-label"></span><strong data-role="progress-percent">0%</strong></div>
+            <div class="autoalt-progress__track"><div class="autoalt-progress__bar" data-role="progress-bar" style="width:0"></div></div>
+            <div class="autoalt-rename-progress__summary" data-role="progress-summary"></div>
+        </div>
+
+        <div class="autoalt-rename-table-wrap">
+            <f:if condition="{result.items}">
+                <f:then>
+                    <f:if condition="{filter.tab} == 'history'">
+                        <f:then>
+                            <table class="table table-hover autoalt-rename-table autoalt-rename-table--history">
+                                <thead>
+                                    <tr>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.image"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.history.change"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.history.method"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.history.date"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.status"/></th>
+                                        <th class="text-end"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.actions"/></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <f:for each="{result.items}" as="item">
+                                    <tr data-file-uid="{item.file_uid}">
+                                        <td>
+                                            <div class="autoalt-rename-image-cell">
+                                                <f:if condition="{item.file}">
+                                                    <f:if condition="{item.editUrl}">
+                                                        <f:then><a class="autoalt-rename-image-link" href="{item.editUrl}" title="{item.new_filename}"><be:thumbnail image="{item.file}" width="48" height="48c" alt=""/></a></f:then>
+                                                        <f:else><be:thumbnail image="{item.file}" width="48" height="48c" alt=""/></f:else>
+                                                    </f:if>
+                                                </f:if>
+                                                <div class="autoalt-rename-image-cell__meta">
+                                                    <strong>{item.new_filename}</strong>
+                                                    <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.uid"/> {item.file_uid}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="autoalt-filename-change">
+                                                <span class="autoalt-filename-change__old">{item.old_filename}</span>
+                                                <span class="autoalt-filename-change__arrow" aria-hidden="true">&#8594;</span>
+                                                <strong>{item.new_filename}</strong>
+                                            </div>
+                                        </td>
+                                        <td><span class="autoalt-method-badge autoalt-method-badge--{item.rename_method}"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.method.{item.rename_method}"/></span></td>
+                                        <td><span class="autoalt-rename-date"><strong><f:format.date format="d M Y">{item.created_at}</f:format.date></strong><span><f:format.date format="H:i">{item.created_at}</f:format.date></span></span></td>
+                                        <td><span class="autoalt-history-status autoalt-history-status--{item.status}"><span aria-hidden="true"></span>{item.status}</span><f:if condition="{item.error_message}"><div class="text-danger">{item.error_message}</div></f:if></td>
+                                        <td class="autoalt-rename-actions text-end"><f:if condition="{item.undoable}"><button type="button" class="btn btn-sm btn-default" data-action="undo" data-file-uid="{item.file_uid}"><span aria-hidden="true">&#8630;</span> <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.action.undo"/></button></f:if></td>
+                                    </tr>
+                                </f:for>
+                                </tbody>
+                            </table>
+                        </f:then>
+                        <f:else>
+                            <table class="table table-hover autoalt-rename-table autoalt-rename-table--files">
+                                <thead>
+                                    <tr>
+                                        <th class="autoalt-rename-select-column"><input type="checkbox" data-role="select-all" aria-label="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.selectAll')}"></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.imageDetails"/></th>
+                                        <th><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.status"/></th>
+                                        <th class="text-end"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.actions"/></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <f:for each="{result.items}" as="item">
+                                    <tr data-file-uid="{item.uid}" data-eligible="{f:if(condition: item.canRename, then: '1', else: '0')}">
+                                        <td class="autoalt-rename-select-column"><input type="checkbox" data-role="row-select" value="{item.uid}"{f:if(condition: item.canRename, else: ' disabled="disabled"') -> f:format.raw()}></td>
+                                        <td>
+                                            <div class="autoalt-rename-image-cell">
+                                                <f:if condition="{item.editUrl}">
+                                                    <f:then><a class="autoalt-rename-image-link" href="{item.editUrl}" title="{item.filename}"><be:thumbnail image="{item.file}" width="48" height="48c" alt=""/></a></f:then>
+                                                    <f:else><be:thumbnail image="{item.file}" width="48" height="48c" alt=""/></f:else>
+                                                </f:if>
+                                                <div class="autoalt-rename-image-cell__meta">
+                                                    <strong class="autoalt-rename-filename" data-role="current-filename">{item.filename}</strong>
+                                                    <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.column.uid"/> {item.uid}</span>
+                                                </div>
+                                            </div>
+                                            <div class="autoalt-inline-rename" data-role="manual-editor" hidden="hidden">
+                                                <label><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.manual.current"/>: <b>{item.filename}</b></label>
+                                                <input class="form-control form-control-sm" type="text" data-role="manual-input" value="{item.filename}">
+                                                <small><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.manual.preview"/>: <span data-role="normalized-preview">{item.filename}</span></small>
+                                                <div><button type="button" class="btn btn-sm autoalt-btn-brand" data-action="manual-confirm"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.action.confirm"/></button> <button type="button" class="btn btn-sm btn-default" data-action="manual-cancel"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.action.cancel"/></button></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge autoalt-status--{item.status}"><f:translate key="{item.statusLabelKey}"/></span></td>
+                                        <td class="autoalt-rename-actions text-end">
+                                            <f:if condition="{item.canRename}"><button type="button" class="btn btn-sm btn-default" data-action="manual"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.action.manual"/></button> <button type="button" class="btn btn-sm autoalt-btn-brand" data-action="ai"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.action.ai"/></button></f:if>
+                                            <f:if condition="{item.undoable}"> <button type="button" class="btn btn-sm btn-default" data-action="undo"><span aria-hidden="true">&#8630;</span> <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.action.undo"/></button></f:if>
+                                        </td>
+                                    </tr>
+                                </f:for>
+                                </tbody>
+                            </table>
+                        </f:else>
+                    </f:if>
+                </f:then>
+                <f:else><div class="autoalt-rename-empty"><span aria-hidden="true">&#128444;</span><strong><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.empty.title"/></strong><p><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.empty"/></p></div></f:else>
+            </f:if>
+        </div>
+
+        <div class="autoalt-rename-pagination">
+            <p class="autoalt-rename-pagination__summary">
+                <f:if condition="{filter.tab} == 'history'">
+                    <f:then><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.history" arguments="{0: pagination.start, 1: pagination.end, 2: pagination.total}"/></f:then>
+                    <f:else><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.images" arguments="{0: pagination.start, 1: pagination.end, 2: pagination.total}"/></f:else>
+                </f:if>
+            </p>
+            <div class="autoalt-rename-pagination__controls">
+                <nav class="pagination" aria-label="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.label')}">
+                    <f:if condition="{pagination.hasPrevious}">
+                        <f:then><a class="page-link autoalt-page-nav" href="{pagination.previousUrl}" aria-label="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.previous')}">&#8249; <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.previousShort"/></a></f:then>
+                        <f:else><span class="page-link autoalt-page-nav disabled" aria-hidden="true">&#8249; <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.previousShort"/></span></f:else>
+                    </f:if>
+                    <f:for each="{pages}" as="page"><a class="page-link{f:if(condition: page.current, then: ' active')}" href="{page.url}"{f:if(condition: page.current, then: ' aria-current="page"') -> f:format.raw()}>{page.number}</a></f:for>
+                    <f:if condition="{pagination.hasNext}">
+                        <f:then><a class="page-link autoalt-page-nav" href="{pagination.nextUrl}" aria-label="{f:translate(key: 'LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.next')}"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.nextShort"/> &#8250;</a></f:then>
+                        <f:else><span class="page-link autoalt-page-nav disabled" aria-hidden="true"><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:rename.pagination.nextShort"/> &#8250;</span></f:else>
+                    </f:if>
+                </nav>
+            </div>
+        </div>
+    </section>
+</div>
+</html>

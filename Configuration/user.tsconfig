@@ -1,0 +1,13 @@
+# AutoAlt.ai permission defaults.
+# Administrators always have full access regardless of these settings.
+# Override per backend user group in the group's "TSconfig" field, e.g.:
+#   tx_alttextgenerator.permissions.generateSingle = 0
+#   tx_alttextgenerator.permissions.runBulkGeneration = 0
+tx_alttextgenerator.permissions {
+    # Allow non-admin editors to generate alt text from the image metadata form.
+    generateSingle = 1
+    # Allow non-admin editors to create/process the bulk queue and retry failed items.
+    runBulkGeneration = 1
+    # Non-admin editors cannot change global AutoAlt.ai settings (API key, defaults) unless enabled here.
+    manageSettings = 0
+}

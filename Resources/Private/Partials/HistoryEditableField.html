@@ -1,0 +1,24 @@
+<div class="autoalt-history-editable" data-role="editable-field" data-field="{field}" data-history-uid="{historyUid}" data-update-url="{updateUrl}">
+    <div data-role="view-mode">
+        <span data-role="view-text">{value}</span>
+        <f:if condition="{canEditHistoryMetadata}">
+            <button type="button" class="btn btn-sm btn-default" data-role="edit-trigger">
+                <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.action.edit"/>
+            </button>
+        </f:if>
+    </div>
+    <f:if condition="{canEditHistoryMetadata}">
+        <div data-role="edit-mode" hidden="hidden">
+            <textarea class="form-control" data-role="edit-textarea" rows="{rows}">{value}</textarea>
+            <p class="autoalt-history-editable__message" data-role="edit-message" hidden="hidden"></p>
+            <div class="autoalt-history-editable__actions">
+                <button type="button" class="btn btn-sm btn-default" data-role="cancel-btn">
+                    <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.action.cancel"/>
+                </button>
+                <button type="button" class="btn btn-sm btn-primary" data-role="save-btn">
+                    <f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:history.action.save"/>
+                </button>
+            </div>
+        </div>
+    </f:if>
+</div>

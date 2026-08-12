@@ -1,0 +1,167 @@
+.autoalt-confirm-modal {
+    --autoalt-confirm-accent: #b30000;
+    --autoalt-confirm-accent-soft: #fff1f2;
+    --autoalt-confirm-border: #e2e8f0;
+    --autoalt-confirm-ink: #0f172a;
+    --autoalt-confirm-muted: #64748b;
+}
+
+.autoalt-confirm-modal .modal-header {
+    background: #fff;
+    border-bottom: 1px solid var(--autoalt-confirm-border);
+    padding: 1.15rem 1.35rem;
+}
+
+.autoalt-confirm-modal .modal-header-title {
+    color: var(--autoalt-confirm-ink);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+
+.autoalt-confirm-modal .modal-body {
+    background: #fff;
+    padding: 1.35rem;
+}
+
+.autoalt-confirm-modal .modal-body > p {
+    margin: 0;
+}
+
+.autoalt-confirmation {
+    align-items: flex-start;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+}
+
+.autoalt-confirmation__icon {
+    align-items: center;
+    background: var(--autoalt-confirm-accent-soft);
+    border-radius: 12px;
+    color: var(--autoalt-confirm-accent);
+    display: inline-flex;
+    height: 3.25rem;
+    justify-content: center;
+    width: 3.25rem;
+}
+
+.autoalt-confirmation__content {
+    min-width: 0;
+}
+
+.autoalt-confirmation__subject {
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid var(--autoalt-confirm-border);
+    border-radius: 8px;
+    display: flex;
+    gap: .65rem;
+    margin: 0 0 .85rem;
+    min-width: 0;
+    padding: .65rem .75rem;
+}
+
+.autoalt-confirmation__subject span {
+    color: var(--autoalt-confirm-muted);
+    flex: 0 0 auto;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.autoalt-confirmation__subject strong {
+    color: var(--autoalt-confirm-ink);
+    font-size: .9rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.autoalt-confirmation__message {
+    color: #334155;
+    font-size: .95rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.autoalt-confirmation__note {
+    align-items: flex-start;
+    background: #fff8e6;
+    border: 1px solid #f6d88a;
+    border-radius: 8px;
+    color: #8a4b00;
+    display: flex;
+    font-size: .82rem;
+    gap: .55rem;
+    grid-column: 1 / -1;
+    line-height: 1.45;
+    margin-top: 0;
+    padding: .7rem .8rem;
+    width: 100%;
+}
+
+.autoalt-confirm-modal--undo {
+    --autoalt-confirm-accent: #6d4cc2;
+    --autoalt-confirm-accent-soft: #f2edff;
+}
+
+.autoalt-confirm-modal--undo .autoalt-confirmation__note {
+    background: #f8fafc;
+    border-color: var(--autoalt-confirm-border);
+    color: #475569;
+}
+
+.autoalt-confirm-modal--danger .autoalt-confirmation__note {
+    background: #fff1f2;
+    border-color: #fecdd3;
+    color: #9f1239;
+}
+
+.autoalt-confirm-modal .modal-footer {
+    background: #f8fafc;
+    border-top: 1px solid var(--autoalt-confirm-border);
+    gap: .5rem;
+    padding: .9rem 1.35rem;
+}
+
+.autoalt-confirm-modal .modal-footer .btn {
+    align-items: center;
+    border-radius: 7px;
+    display: inline-flex;
+    font-weight: 600;
+    gap: .35rem;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding-inline: 1rem;
+}
+
+.autoalt-confirm-modal .modal-footer .btn-danger {
+    background: #b30000;
+    border-color: #b30000;
+    color: #fff;
+}
+
+.autoalt-confirm-modal .modal-footer .btn-danger:hover,
+.autoalt-confirm-modal .modal-footer .btn-danger:focus {
+    background: #d64545;
+    border-color: #d64545;
+    color: #fff;
+}
+
+@media (max-width: 560px) {
+    .autoalt-confirmation {
+        grid-template-columns: 1fr;
+    }
+
+    .autoalt-confirmation__icon {
+        height: 2.75rem;
+        width: 2.75rem;
+    }
+
+    .autoalt-confirm-modal .modal-footer .btn {
+        flex: 1 1 0;
+    }
+}
