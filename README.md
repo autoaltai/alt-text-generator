@@ -5,7 +5,7 @@ the [AutoAlt.ai](https://www.autoalt.ai/) API.
 
 - **Extension key:** `alt_text_generator`
 - **Composer package:** `autoaltai/alt-text-generator`
-- **TYPO3:** 14.0+
+- **TYPO3:** 13.0.0–14.3.99
 - **PHP:** 8.2+
 
 ## Features
