@@ -20,8 +20,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/autoaltai/typo3-alt-text-generator/issues",
-        "source": "https://github.com/autoaltai/typo3-alt-text-generator",
+        "issues": "https://github.com/autoaltai/alt-text-generator/issues",
+        "source": "https://github.com/autoaltai/alt-text-generator",
         "docs": "https://docs.typo3.org/p/autoaltai/alt-text-generator/main/en-us/"
     },
     "require": {
