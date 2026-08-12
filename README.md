@@ -1,4 +1,4 @@
-# AutoAlt.ai Alt Text Generator for TYPO3
+# Alt Text Generator - AutoAlt.ai for TYPO3
 
 Generate accessible, SEO-friendly image alt text for TYPO3 media assets using
 the [AutoAlt.ai](https://www.autoalt.ai/) API.

@@ -1,15 +1,15 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'AutoAlt.ai Alt Text Generator',
-    'description' => 'Generate accessible and SEO-friendly image alt text in TYPO3 with AutoAlt.ai.',
+    'title' => 'Alt Text Generator - AutoAlt.ai',
+    'description' => 'Generate AI alt text, image titles, descriptions and SEO-friendly filenames automatically or in bulk for TYPO3 websites. Includes 50 free credits every month.',
     'category' => 'module',
     'author' => 'AutoAlt.ai',
     'author_company' => 'AutoAlt.ai',
     'author_email' => 'support@autoalt.ai',
     'state' => 'stable',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.2',
+    'version' => '1.0.4',
     'constraints' => [
         'depends' => [
             'php' => '8.2.0-8.99.99',

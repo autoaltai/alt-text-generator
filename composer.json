@@ -1,6 +1,6 @@
 {
     "name": "autoaltai/alt-text-generator",
-    "description": "TYPO3 extension for generating accessible image alt text with AutoAlt.ai.",
+    "description": "Generate AI alt text, image titles, descriptions and SEO-friendly filenames automatically or in bulk for TYPO3 websites. Includes 50 free credits every month.",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0-or-later",
     "homepage": "https://autoalt.ai",
