@@ -1,7 +1,5 @@
 <?php
 
-defined('TYPO3') || die();
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'AutoAlt.ai Alt Text Generator',
     'description' => 'Generate accessible and SEO-friendly image alt text in TYPO3 with AutoAlt.ai.',
