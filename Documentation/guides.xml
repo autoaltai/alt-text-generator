@@ -4,13 +4,15 @@
         links-are-relative="true">
     <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
                project-home="https://www.autoalt.ai/"
-               project-contact="support@autoalt.ai"
+               project-contact="mailto:support@autoalt.ai"
                project-repository="https://github.com/autoaltai/alt-text-generator"
                project-issues="https://github.com/autoaltai/alt-text-generator/issues"
+               edit-on-github="autoaltai/alt-text-generator"
+               edit-on-github-branch="main"
                interlink-shortcode="autoaltai/alt-text-generator"
     />
     <project title="Alt Text Generator - AutoAlt.ai"
-             release="1.0.4"
+             release="1.0.5"
              version="1.0"
              copyright="since 2026 by AutoAlt.ai"
     />

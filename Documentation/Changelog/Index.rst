@@ -5,6 +5,14 @@
 Changelog
 =========
 
+1.0.5
+-----
+
+- Added safe plugin data synchronization with AutoAlt.ai.
+- Added automatic SEO-friendly filename generation after image upload.
+- Added the Automatically Rename Uploaded Image Files setting.
+- Improved compatibility with warmed TYPO3 controller caches.
+
 1.0.4
 =====
 
