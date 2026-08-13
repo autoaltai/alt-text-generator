@@ -11,6 +11,7 @@ use AutoAltAi\AltTextGenerator\Service\ConfigurationService;
 use AutoAltAi\AltTextGenerator\Service\FileGenerateRequestFactory;
 use AutoAltAi\AltTextGenerator\Service\KeywordValidationService;
 use AutoAltAi\AltTextGenerator\Service\PermissionsService;
+use AutoAltAi\AltTextGenerator\Service\PluginDataSyncService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
@@ -18,6 +19,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 #[AsController]
 final readonly class BulkGenerationAjaxController
@@ -30,6 +32,7 @@ final readonly class BulkGenerationAjaxController
         private KeywordValidationService $keywordValidationService,
         private PermissionsService $permissionsService,
         private LanguageServiceFactory $languageServiceFactory,
+        private ?PluginDataSyncService $pluginDataSyncService = null,
     ) {}
 
     public function previewAction(ServerRequestInterface $request): ResponseInterface
@@ -105,6 +108,12 @@ final readonly class BulkGenerationAjaxController
                 'success' => false,
                 'message' => sprintf($languageService->sL(self::LLL . 'ajax.processingFailed'), $exception->getMessage()),
             ], 500);
+        }
+
+        // Mirror the other AutoAlt.ai integrations: refresh aggregate data at
+        // the end of a bulk run, never once per individual image.
+        if ($result->remaining === 0) {
+            $this->synchronizePluginData($this->resolveWebsiteDomain($request));
         }
 
         return new JsonResponse([
@@ -223,6 +232,10 @@ final readonly class BulkGenerationAjaxController
             ], 500);
         }
 
+        // A File List selection is a complete, finite operation in one
+        // request, so synchronize its updated statistics immediately.
+        $this->synchronizePluginData($this->resolveWebsiteDomain($request));
+
         return new JsonResponse([
             'success' => true,
             'result' => [
@@ -291,6 +304,12 @@ final readonly class BulkGenerationAjaxController
         }
 
         return preg_replace('/^www\./', '', $host) ?? $host;
+    }
+
+    private function synchronizePluginData(string $websiteDomain): void
+    {
+        ($this->pluginDataSyncService ?? GeneralUtility::makeInstance(PluginDataSyncService::class))
+            ->synchronize($websiteDomain);
     }
 
     private function getBackendUser(): BackendUserAuthentication

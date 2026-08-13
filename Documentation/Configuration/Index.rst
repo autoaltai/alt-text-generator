@@ -5,179 +5,170 @@
 Configuration
 =============
 
-All settings are managed from the backend module's **Settings** screen
-(**Media > AutoAlt.ai > Settings**). The extension deliberately does not
-expose duplicate fields in TYPO3's System > Settings module.
-
-..  _configuration-connection:
+All extension settings are managed in **Media > AutoAlt.ai > Extension
+Configuration**. They are global extension settings, so give access only to
+trusted administrators or backend user groups.
 
 Connection
 ==========
 
-..  confval:: apiKey
+Use the connection card to add, replace, or remove the AutoAlt.ai API key.
+The card also displays the connection state and available credit balance.
 
-    :Type: string
-    :Default: (empty)
+..  warning::
 
-    Your AutoAlt.ai API key. Add, replace, validate, or clear it only from the
-    Welcome to AutoAlt.ai connection card in the backend Settings module.
-    If a key was committed to source control, copied into a ticket, or exposed
-    in logs, rotate it in AutoAlt.ai before entering its replacement.
+    A valid API key and available credits are required for AI generation and
+    AI filename generation.
 
-The AutoAlt.ai API endpoint is fixed by the extension and is not configurable.
+Data sent for generation
+=========================
 
-..  note::
+To generate text, the extension sends the image content to the AutoAlt.ai
+service together with the generation settings needed for the request. Depending
+on the action, this can include the image filename, site language, requested
+metadata fields, writing style, character limits, keywords, negative keywords,
+prefix/suffix, and custom prompt.
 
-    Generation requests are sent to AutoAlt.ai. Depending on configuration,
-    the payload can include the API key, image public URL or direct image
-    contents, website domain, language, SEO keywords, negative keywords,
-    custom prompt text, prefix/suffix text, and generated metadata options.
+Review the `AutoAlt.ai Privacy Policy <https://www.autoalt.ai/privacy-policy/>`__
+and your organisation's data-protection requirements before enabling the
+extension. Do not use prompts or metadata to transmit passwords, API keys, or
+unnecessary personal or confidential information.
 
-..  confval:: enabled
+Automation and file selection
+=============================
 
-    :Type: boolean
-    :Default: 1
+Extension enabled
+-----------------
 
-    Enables AutoAlt.ai features in the TYPO3 backend. When disabled, bulk
-    generation and auto-generation on upload are both paused.
+Turns AutoAlt.ai workflows on or off. Disable the extension temporarily to
+pause generation without removing its history or settings.
 
-..  _configuration-generation:
+Auto-generate on upload
+-----------------------
+
+When enabled, newly added supported files can be processed automatically. Use
+a small test library first, because each eligible generation can use credits.
+
+Automatically Rename Uploaded Image Files
+-----------------------------------------
+
+This option is disabled by default. When enabled, AutoAlt.ai requests an
+SEO-friendly filename for each newly uploaded eligible image. TYPO3 FAL then
+renames the physical file while retaining its file extension and keeping TYPO3
+file references connected. If the requested filename is already used in the
+same folder, the extension creates an available name using a numeric suffix.
+
+When **Auto-generate on upload** is also enabled, one AutoAlt.ai image-analysis
+request is used for both metadata and filename generation. Completed FAL rename
+attempts are kept in the Bulk Rename Images history; errors are also written to
+TYPO3 logs. Test this feature in a non-production folder before enabling it for
+a complete media library.
+
+Overwrite existing alternative text
+-----------------------------------
+
+When enabled, generation is allowed to replace existing alternative text.
+Disable it to protect editor-written text and fill only empty values.
+
+Short alt-text length
+---------------------
+
+Choose the threshold used to flag short alternative text in the dashboard and
+Bulk Alt Text Generator. A short value is a review signal, not proof that the
+text is wrong.
+
+Allowed image extensions
+------------------------
+
+Enter a comma-separated list such as:
+
+..  code-block:: text
+
+    jpg,jpeg,png,webp,gif,avif,svg
+
+Only listed file extensions are eligible for generation. Use this setting to
+avoid processing formats your editorial workflow does not use.
 
 Generation defaults
-====================
+===================
 
-Generated text always uses the language configured with TYPO3 site language
-ID ``0`` as its source. AutoAlt.ai automatically translates the generated
-metadata into every other active site language.
+Writing style
+-------------
 
-..  confval:: writingStyle
+Choose the writing style that best matches your editorial tone. The setting
+guides the generated output; editors should still review results in context.
 
-    :Type: string (select)
-    :Default: default
+Preferred character range
+-------------------------
 
-    The writing style requested from AutoAlt.ai (for example *Friendly*,
-    *Professional*, *Technical*, *SEO-optimized*, ...).
+Set the minimum and maximum number of characters requested for alternative
+text. The extension shows a recommended range in the backend. Do not force a
+description to a target length when the image needs a shorter or longer human
+written alternative.
 
-..  confval:: altTextMinLength / altTextMaxLength
+Prefix and suffix
+-----------------
 
-    :Type: int
-    :Default: 100 / 150
+Optionally add fixed text before or after generated alternative text. Use this
+sparingly: repeating a brand name in every alternative text is usually not
+useful for screen-reader users.
 
-    Preferred minimum and maximum number of characters for generated alt
-    text.
+Generate title and description
+------------------------------
 
-..  confval:: altTextPrefix / altTextSuffix
+Choose whether the extension may generate TYPO3 image **Title** and
+**Description** metadata in addition to alternative text. In a bulk run, the
+editor can override this individually with **Generate**, **Keep**, or
+**Clear**.
 
-    :Type: string
-    :Default: (empty)
+SEO guidance and custom instructions
+====================================
 
-    Optional text added before/after each generated alt text.
+SEO keywords
+------------
 
-..  _configuration-seo:
+Enter up to six relevant words or short phrases, separated by commas. They
+provide optional context to AutoAlt.ai; they do not replace a meaningful image
+description.
 
-SEO guidance
-============
+Negative keywords
+-----------------
 
-..  confval:: seoKeywords / negativeKeywords
+Enter words or phrases that should be avoided. Do not include the same term in
+both keyword fields.
 
-    :Type: string
-    :Default: (empty)
+Custom prompt
+-------------
 
-    Comma-separated keywords AutoAlt.ai should prefer or avoid when
-    generating alt text.
+Use the custom prompt for stable editorial context, for example:
 
-..  confval:: customPrompt
+..  code-block:: text
 
-    :Type: text
-    :Default: (empty)
+    Describe the product clearly. Include material and colour only when they
+    are visible. Do not make claims that cannot be seen in the image.
 
-    Optional extra business or brand context passed to AutoAlt.ai.
+Do not put passwords, API keys, personal data, or confidential business data
+in a custom prompt.
 
-..  _configuration-automation:
+Bulk completion notification
+============================
 
-Automation and filters
-=======================
+Enable **Email notification on bulk completion** and provide a recipient
+address if an administrator should be notified after a bulk run finishes.
+The TYPO3 installation must have working mail transport for this feature.
 
-..  confval:: autoGenerateOnUpload
+Error logs
+==========
 
-    :Type: boolean
-    :Default: 1
+The settings page displays recent AutoAlt.ai errors and provides a **Clear
+logs** action. Errors are also sent to TYPO3's standard logging system and can
+be reviewed in **System > Log**. See :doc:`Troubleshooting/Index` for common
+causes.
 
-    Automatically generate alt text when a supported image is added to a
-    FAL storage (upload, drag & drop, etc.).
+Language behaviour
+==================
 
-..  confval:: overwriteExistingAltText
-
-    :Type: boolean
-    :Default: 0
-
-    Allow generated text to replace alt text that already exists.
-
-..  confval:: allowedImageExtensions
-
-    :Type: string
-    :Default: jpg,jpeg,png,webp,gif,avif
-
-    Comma-separated list of file extensions to process. Leave empty to
-    process all supported raster image types.
-
-..  confval:: shortAltTextLength
-
-    :Type: int (select)
-    :Default: 40
-
-    Images with alt text shorter than this number of characters are
-    reported as "short alt text".
-
-Images are sent directly from TYPO3 to AutoAlt.ai rather than by public URL.
-Unreadable files are skipped, and API errors are always recorded in TYPO3's
-System Log and the in-admin Error Logs panel.
-
-..  _configuration-notifications:
-
-Notifications
-=============
-
-..  confval:: notifyOnBulkComplete
-
-    :Type: boolean
-    :Default: 0
-
-    Send an email when a bulk generation run finishes (reaches zero
-    remaining eligible images).
-
-..  confval:: notificationEmail
-
-    :Type: string
-    :Default: (empty)
-
-    Recipient address for the bulk-completion notification email above.
-
-..  _configuration-permissions:
-
-Permissions
-===========
-
-Three permission flags can be set per backend user group via the group's
-**TSconfig** field (see :ref:`t3tsconfig:start` for how User TSconfig is
-edited). Administrators always have full access regardless of these
-settings.
-
-Generation actions that write TYPO3 FAL metadata (single image generation,
-bulk generation, File List selection generation, history inline edit, and
-retry) additionally require the backend user/group to have TYPO3 table modify
-permission for ``sys_file_metadata``.
-For non-admin users, interactive generation also respects TYPO3 FAL file
-mounts and file permissions; users can only generate for files/folders they
-can read and whose metadata they are allowed to edit.
-
-..  code-block:: typoscript
-
-    tx_alttextgenerator.permissions {
-        # Allow non-admin editors to generate alt text from the image metadata form.
-        generateSingle = 1
-        # Allow non-admin editors to run bulk generation and retry failed items.
-        runBulkGeneration = 1
-        # Non-admin editors cannot change global AutoAlt.ai settings unless enabled here.
-        manageSettings = 0
-    }
+The extension uses the TYPO3 site's default language as the source for
+generation and can create translations for active site languages. Existing
+editor-written translations are protected unless an overwrite option applies.
+Review translated content for terminology, product names, and legal wording.

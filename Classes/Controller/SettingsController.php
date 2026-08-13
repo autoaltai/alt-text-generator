@@ -10,6 +10,7 @@ use AutoAltAi\AltTextGenerator\Service\CreditSummaryService;
 use AutoAltAi\AltTextGenerator\Service\ErrorLogService;
 use AutoAltAi\AltTextGenerator\Service\KeywordValidationService;
 use AutoAltAi\AltTextGenerator\Service\PermissionsService;
+use AutoAltAi\AltTextGenerator\Service\PluginDataSyncService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
@@ -20,6 +21,7 @@ use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 #[AsController]
 final readonly class SettingsController
@@ -91,6 +93,10 @@ final readonly class SettingsController
         private KeywordValidationService $keywordValidationService,
         private PermissionsService $permissionsService,
         private LanguageServiceFactory $languageServiceFactory,
+        // Keep this optional and last: installations may temporarily use a
+        // warmed TYPO3 route/controller definition with the previous
+        // constructor argument order.
+        private ?PluginDataSyncService $pluginDataSyncService = null,
     ) {}
 
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
@@ -139,6 +145,7 @@ final readonly class SettingsController
                 $currentConfiguration = $submittedConfiguration;
             } else {
                 $this->configurationService->set($submittedConfiguration);
+                $this->synchronizePluginData($this->resolveWebsiteDomain($request));
 
                 return new RedirectResponse(
                     (string)$this->uriBuilder->buildUriFromRoute('media_autoalt_alt_text_generator_settings', ['saved' => 1]),
@@ -294,6 +301,12 @@ final readonly class SettingsController
         return preg_replace('/^www\./', '', $host) ?? $host;
     }
 
+    private function synchronizePluginData(string $websiteDomain): void
+    {
+        ($this->pluginDataSyncService ?? GeneralUtility::makeInstance(PluginDataSyncService::class))
+            ->synchronize($websiteDomain);
+    }
+
     private function getSubmittedAction(ServerRequestInterface $request): string
     {
         $body = $request->getParsedBody();
@@ -313,7 +326,7 @@ final readonly class SettingsController
         $settings = array_replace($this->configurationService->getDefaultConfiguration(), $configuration);
         $settings['writingStyle'] = $this->normalizeWritingStyle($settings['writingStyle'] ?? '');
 
-        foreach (['enabled', 'autoGenerateOnUpload', 'overwriteExistingAltText', 'usePublicImageUrls', 'logApiErrors', 'notifyOnBulkComplete', 'ignoreMissingImages', 'generateTitle', 'generateDescription'] as $key) {
+        foreach (['enabled', 'autoGenerateOnUpload', 'autoRenameOnUpload', 'overwriteExistingAltText', 'usePublicImageUrls', 'logApiErrors', 'notifyOnBulkComplete', 'ignoreMissingImages', 'generateTitle', 'generateDescription'] as $key) {
             $settings[$key] = $this->isEnabled($settings[$key] ?? false);
         }
 
@@ -346,6 +359,7 @@ final readonly class SettingsController
         $settings['negativeKeywords'] = $this->sanitizeString($submitted['negativeKeywords'] ?? $settings['negativeKeywords']);
         $settings['customPrompt'] = $this->sanitizeTextarea($submitted['customPrompt'] ?? $settings['customPrompt']);
         $settings['autoGenerateOnUpload'] = $this->isEnabled($submitted['autoGenerateOnUpload'] ?? false) ? '1' : '0';
+        $settings['autoRenameOnUpload'] = $this->isEnabled($submitted['autoRenameOnUpload'] ?? false) ? '1' : '0';
         $settings['overwriteExistingAltText'] = $this->isEnabled($submitted['overwriteExistingAltText'] ?? false) ? '1' : '0';
         $settings['usePublicImageUrls'] = '0';
         $settings['allowedImageExtensions'] = $this->sanitizeExtensions($submitted['allowedImageExtensions'] ?? $settings['allowedImageExtensions']);
@@ -456,7 +470,7 @@ final readonly class SettingsController
     private function buildCheckedAttributes(array $settings): array
     {
         $attributes = [];
-        foreach (['enabled', 'autoGenerateOnUpload', 'overwriteExistingAltText', 'usePublicImageUrls', 'logApiErrors', 'notifyOnBulkComplete', 'ignoreMissingImages', 'generateTitle', 'generateDescription'] as $key) {
+        foreach (['enabled', 'autoGenerateOnUpload', 'autoRenameOnUpload', 'overwriteExistingAltText', 'usePublicImageUrls', 'logApiErrors', 'notifyOnBulkComplete', 'ignoreMissingImages', 'generateTitle', 'generateDescription'] as $key) {
             $attributes[$key] = $this->isEnabled($settings[$key] ?? false) ? ' checked="checked"' : '';
         }
 

@@ -5,26 +5,28 @@
 Changelog
 =========
 
-..  _changelog-0-1-0:
-
-0.1.0
+1.0.4
 =====
 
-Initial release.
+Current stable release.
 
-*   Backend module with dashboard, credit balance, and image scan overview.
-*   Settings screen with API key validation.
-*   Bulk generation with live AJAX progress and a live generation log.
-*   Auto-generate alt text on upload.
-*   File List multi-selection generation for selected files and folders.
-*   Generated alt text, title, and description writes use the exact FAL
-    metadata row where available.
-*   Filterable generation history with synchronous per-entry retry and
-    automatic retention, plus inline metadata editing.
-*   FAL file mount and metadata edit permissions are enforced before
-    generation or metadata writes.
-*   Logging integration with TYPO3's System Log, plus an in-admin Error Logs
-    panel on the Settings page.
-*   TSconfig-based permissions for single-image generation, bulk generation,
-    and settings management.
-*   Full localization support (XLIFF).
+*   Provides the AutoAlt.ai backend module under **Media > AutoAlt.ai**.
+*   Generates alternative text, titles, and descriptions for individual
+    images, selected Filelist items, uploads, or bulk media-library batches.
+*   Supports per-field **Generate**, **Keep**, and **Clear** actions in the
+    Bulk Alt Text Generator.
+*   Includes configurable writing style, length, keywords, negative keywords,
+    custom instructions, upload automation, and error logging.
+*   Adds generation history with filtering, inline review, and retry support.
+*   Adds Bulk Rename Images with filename audit, manual and AI-assisted
+    renaming, history, and supported undo operations.
+*   Adds an opt-in automatic rename workflow for newly uploaded eligible
+    images, using TYPO3 FAL to retain file references and resolve conflicts.
+*   Respects TYPO3 FAL file mounts and metadata permissions and offers
+    TSconfig-based feature permissions.
+*   Supports TYPO3 13.0.0 through 14.3.99 and PHP 8.2 or later.
+
+1.0.0
+=====
+
+Initial public release of the AutoAlt.ai TYPO3 extension.

@@ -3,15 +3,16 @@
         xsi:schemaLocation="https://www.phpdoc.org/guides ../vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
         links-are-relative="true">
     <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
-               project-home="https://extensions.typo3.org/extension/alt_text_generator/"
+               project-home="https://www.autoalt.ai/"
                project-contact="support@autoalt.ai"
-               project-repository="https://github.com/autoaltai/typo3-alt-text-generator"
-               project-issues="https://github.com/autoaltai/typo3-alt-text-generator/issues"
-               interlink-shortcode="alt_text_generator"
+               project-repository="https://github.com/autoaltai/alt-text-generator"
+               project-issues="https://github.com/autoaltai/alt-text-generator/issues"
+               interlink-shortcode="autoaltai/alt-text-generator"
     />
-    <project title="AutoAlt.ai Alt Text Generator"
-             release="0.1.0"
-             version="0.1"
+    <project title="Alt Text Generator - AutoAlt.ai"
+             release="1.0.4"
+             version="1.0"
              copyright="since 2026 by AutoAlt.ai"
     />
+
 </guides>

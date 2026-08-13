@@ -30,6 +30,7 @@ final readonly class FileGenerateRequestFactory
         ?bool $generateTitleOverride = null,
         ?bool $generateDescriptionOverride = null,
         ?bool $generateAltTextOverride = null,
+        ?bool $renameFileOverride = null,
     ): GenerateAltTextRequest {
         $usePublicUrl = $this->isEnabled($configuration['usePublicImageUrls'] ?? false);
         $publicUrl = $usePublicUrl ? (string)($file->getPublicUrl() ?? '') : '';
@@ -49,6 +50,7 @@ final readonly class FileGenerateRequestFactory
             altTextMaxLimit: max(0, (int)($configuration['altTextMaxLength'] ?? 0)),
             generateTitle: $generateTitleOverride ?? $this->isEnabled($configuration['generateTitle'] ?? true),
             generateDescription: $generateDescriptionOverride ?? $this->isEnabled($configuration['generateDescription'] ?? true),
+            renameFile: $renameFileOverride ?? false,
             generateAltText: $generateAltTextOverride ?? true,
         );
     }

@@ -224,6 +224,11 @@
                             <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:settings.field.autoGenerateOnUpload"/></span>
                         </label>
                         <label class="autoalt-switch">
+                            <input type="hidden" name="settings[autoRenameOnUpload]" value="0">
+                            <input type="checkbox" name="settings[autoRenameOnUpload]" value="1"{checked.autoRenameOnUpload -> f:format.raw()}{disabledAttribute -> f:format.raw()}>
+                            <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:settings.field.autoRenameOnUpload"/></span>
+                        </label>
+                        <label class="autoalt-switch">
                             <input type="hidden" name="settings[overwriteExistingAltText]" value="0">
                             <input type="checkbox" name="settings[overwriteExistingAltText]" value="1"{checked.overwriteExistingAltText -> f:format.raw()}{disabledAttribute -> f:format.raw()}>
                             <span><f:translate key="LLL:EXT:alt_text_generator/Resources/Private/Language/locallang.xlf:settings.field.overwriteExistingAltText"/></span>

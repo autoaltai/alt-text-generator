@@ -9,6 +9,7 @@ use AutoAltAi\AltTextGenerator\Service\AutoAltApiService;
 use AutoAltAi\AltTextGenerator\Service\ConfigurationService;
 use AutoAltAi\AltTextGenerator\Service\CreditSummaryService;
 use AutoAltAi\AltTextGenerator\Service\PermissionsService;
+use AutoAltAi\AltTextGenerator\Service\PluginDataSyncService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
@@ -16,6 +17,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Backs the "Welcome to AutoAlt.ai" connect panel on the Settings page: pasting
@@ -34,6 +36,7 @@ final readonly class ConnectAjaxController
         private ConfigurationService $configurationService,
         private PermissionsService $permissionsService,
         private LanguageServiceFactory $languageServiceFactory,
+        private ?PluginDataSyncService $pluginDataSyncService = null,
     ) {}
 
     public function connectApiKeyAction(ServerRequestInterface $request): ResponseInterface
@@ -73,6 +76,7 @@ final readonly class ConnectAjaxController
         }
 
         $this->persistApiKey($apiKey);
+        $this->synchronizePluginData($websiteDomain);
 
         return new JsonResponse([
             'success' => true,
@@ -179,6 +183,7 @@ final readonly class ConnectAjaxController
         }
 
         $this->persistApiKey($apiKey);
+        $this->synchronizePluginData($websiteDomain);
 
         return new JsonResponse([
             'success' => true,
@@ -241,6 +246,12 @@ final readonly class ConnectAjaxController
         }
 
         return preg_replace('/^www\./', '', $host) ?? $host;
+    }
+
+    private function synchronizePluginData(string $websiteDomain): void
+    {
+        ($this->pluginDataSyncService ?? GeneralUtility::makeInstance(PluginDataSyncService::class))
+            ->synchronize($websiteDomain);
     }
 
     private function getBackendUser(): BackendUserAuthentication

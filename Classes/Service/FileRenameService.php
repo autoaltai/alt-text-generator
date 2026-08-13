@@ -51,6 +51,45 @@ final readonly class FileRenameService
         }
     }
 
+    /**
+     * Renames a file immediately after it has been added to a FAL storage.
+     *
+     * The event can run outside an interactive backend request (for example
+     * during an import), where no BackendUserAuthentication is available. In
+     * that case the rename is still limited to writable FAL storages; TYPO3's
+     * normal upload workflow remains the authority that allowed the file to be
+     * added in the first place.
+     */
+    public function renameAfterUpload(
+        File $file,
+        string $requestedBasename,
+        string $apiRequestId = '',
+        ?BackendUserAuthentication $backendUser = null,
+    ): FileRenameResult {
+        $fileUid = $file->getUid();
+        if ($fileUid <= 0) {
+            return new FileRenameResult(false, $fileUid, message: 'The uploaded file has no valid TYPO3 file UID.');
+        }
+
+        $locker = $this->lockFactory->createLocker('autoalt-file-rename-' . $fileUid);
+        if (!$locker->acquire()) {
+            return new FileRenameResult(false, $fileUid, message: 'This file is already being processed.');
+        }
+
+        try {
+            return $this->renameFile($file, $requestedBasename, 'auto', $backendUser, $apiRequestId);
+        } catch (\Throwable $exception) {
+            $this->logger->error('AutoAlt.ai automatic FAL rename after upload failed.', [
+                'fileUid' => $fileUid,
+                'fileName' => $file->getName(),
+                'exception' => $exception,
+            ]);
+            return new FileRenameResult(false, $fileUid, message: $this->safeMessage($exception));
+        } finally {
+            $locker->release();
+        }
+    }
+
     public function undo(int $fileUid, BackendUserAuthentication $backendUser): FileRenameResult
     {
         if ($fileUid <= 0) {
@@ -99,7 +138,7 @@ final readonly class FileRenameService
         }
     }
 
-    private function renameFile(File $file, string $requestedBasename, string $method, BackendUserAuthentication $backendUser, string $apiRequestId): FileRenameResult
+    private function renameFile(File $file, string $requestedBasename, string $method, ?BackendUserAuthentication $backendUser, string $apiRequestId): FileRenameResult
     {
         $this->assertRenameAllowed($file, $backendUser);
         $oldFilename = $file->getName();
@@ -125,7 +164,7 @@ final readonly class FileRenameService
                     newFilename: $renamedFile->getName(),
                     method: $method,
                     status: 'success',
-                    backendUserUid: (int)($backendUser->user['uid'] ?? 0),
+                    backendUserUid: $this->backendUserUid($backendUser),
                     apiRequestId: $apiRequestId,
                 );
             } catch (\Throwable $historyException) {
@@ -145,7 +184,7 @@ final readonly class FileRenameService
                     newFilename: $target,
                     method: $method,
                     status: 'error',
-                    backendUserUid: (int)($backendUser->user['uid'] ?? 0),
+                    backendUserUid: $this->backendUserUid($backendUser),
                     errorMessage: $this->safeMessage($exception),
                     apiRequestId: $apiRequestId,
                 );
@@ -156,7 +195,7 @@ final readonly class FileRenameService
         }
     }
 
-    private function assertRenameAllowed(File $file, BackendUserAuthentication $backendUser): void
+    private function assertRenameAllowed(File $file, ?BackendUserAuthentication $backendUser): void
     {
         if ($file->isMissing()) {
             throw new \RuntimeException('The physical file is missing.');
@@ -171,9 +210,14 @@ final readonly class FileRenameService
         if (!$storage->isWritable()) {
             throw new \RuntimeException('The file storage is read-only.');
         }
-        if (!$backendUser->isAdmin() && !$storage->checkFileActionPermission('rename', $file)) {
+        if ($backendUser !== null && !$backendUser->isAdmin() && !$storage->checkFileActionPermission('rename', $file)) {
             throw new \RuntimeException('You do not have permission to rename this file.');
         }
+    }
+
+    private function backendUserUid(?BackendUserAuthentication $backendUser): int
+    {
+        return (int)($backendUser?->user['uid'] ?? 0);
     }
 
     private function safeMessage(\Throwable $exception): string

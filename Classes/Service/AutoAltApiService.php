@@ -16,6 +16,7 @@ final readonly class AutoAltApiService
 {
     private const API_BASE_URL = 'https://ahxdfj.autoalt.ai/api/';
     private const GENERIC_REQUEST_FAILURE_MESSAGE = 'AutoAlt.ai API request failed. Please try again later.';
+    private const PLUGIN_DATA_SYNC_TIMEOUT = 5;
 
     public function __construct(
         private RequestFactory $requestFactory,
@@ -105,6 +106,24 @@ final readonly class AutoAltApiService
             'setting' => $settings,
             'website_domain' => $websiteDomain,
         ], apiKey: $apiKey);
+    }
+
+    /**
+     * Sends the installation's aggregated plugin data to AutoAlt.ai. The
+     * caller owns failure handling because this request is informational and
+     * must never interrupt a TYPO3 workflow.
+     *
+     * @param array<string, mixed> $payload
+     * @return array<string, mixed>
+     */
+    public function synchronizePluginData(array $payload): array
+    {
+        // Sync data is telemetry-like information, not an action requested by
+        // the editor. Keep a remote outage from delaying a TYPO3 workflow.
+        return $this->requestJson('autoalt-get-data-from-plugin', 'POST', [
+            'json' => $payload,
+            'timeout' => self::PLUGIN_DATA_SYNC_TIMEOUT,
+        ]);
     }
 
     public function getApiKey(): string

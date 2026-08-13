@@ -8,12 +8,14 @@ use AutoAltAi\AltTextGenerator\Service\AutoAltApiService;
 use AutoAltAi\AltTextGenerator\Service\AltTextTranslationService;
 use AutoAltAi\AltTextGenerator\Service\ConfigurationService;
 use AutoAltAi\AltTextGenerator\Service\ErrorLogService;
+use AutoAltAi\AltTextGenerator\Service\FileRenameService;
 use AutoAltAi\AltTextGenerator\Service\FileGenerateRequestFactory;
 use AutoAltAi\AltTextGenerator\Service\HistoryService;
 use AutoAltAi\AltTextGenerator\Service\MetadataWriterService;
 use AutoAltAi\AltTextGenerator\Service\SiteLanguageResolver;
 use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Resource\Event\AfterFileAddedEvent;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Index\MetaDataRepository;
@@ -26,6 +28,7 @@ final readonly class AutoGenerateOnUploadEventListener
         private MetaDataRepository $metaDataRepository,
         private HistoryService $historyService,
         private FileGenerateRequestFactory $generateRequestFactory,
+        private FileRenameService $fileRenameService,
         private MetadataWriterService $metadataWriterService,
         private SiteLanguageResolver $siteLanguageResolver,
         private AltTextTranslationService $altTextTranslationService,
@@ -42,9 +45,11 @@ final readonly class AutoGenerateOnUploadEventListener
         }
 
         $configuration = $this->getExtensionConfiguration();
+        $generateMetadata = $this->isEnabled($configuration['autoGenerateOnUpload'] ?? true);
+        $renameFile = $this->isEnabled($configuration['autoRenameOnUpload'] ?? false);
         if (
             !$this->isEnabled($configuration['enabled'] ?? true)
-            || !$this->isEnabled($configuration['autoGenerateOnUpload'] ?? true)
+            || (!$generateMetadata && !$renameFile)
             || trim((string)($configuration['apiKey'] ?? '')) === ''
         ) {
             return;
@@ -62,7 +67,10 @@ final readonly class AutoGenerateOnUploadEventListener
             $websiteDomain = $this->generateRequestFactory->resolveWebsiteDomain();
             $metadata = $this->metaDataRepository->findByFileUid($file->getUid());
             $existingAltText = trim((string)($metadata['alternative'] ?? ''));
-            if ($existingAltText !== '' && !$this->isEnabled($configuration['overwriteExistingAltText'] ?? false)) {
+            if ($generateMetadata && $existingAltText !== '' && !$this->isEnabled($configuration['overwriteExistingAltText'] ?? false)) {
+                $generateMetadata = false;
+            }
+            if (!$generateMetadata && !$renameFile) {
                 return;
             }
 
@@ -75,51 +83,62 @@ final readonly class AutoGenerateOnUploadEventListener
                     $configuration,
                     $websiteDomain,
                     languageOverride: $languageSelection?->source->languageCode,
+                    generateTitleOverride: $generateMetadata && $this->isEnabled($configuration['generateTitle'] ?? true),
+                    generateDescriptionOverride: $generateMetadata && $this->isEnabled($configuration['generateDescription'] ?? true),
+                    generateAltTextOverride: $generateMetadata,
+                    renameFileOverride: $renameFile,
                 )
             );
-            $altText = trim($result->altText);
-            if ($altText === '') {
-                throw new \RuntimeException('AutoAlt.ai returned an empty alt text response.');
+            if ($renameFile) {
+                $this->renameUploadedFile($configuration, $file, trim($result->filename), $result->assetId !== null ? (string)$result->assetId : '');
             }
-            $title = $this->isEnabled($configuration['generateTitle'] ?? true) ? trim($result->title) : '';
-            $description = $this->isEnabled($configuration['generateDescription'] ?? true) ? trim($result->description) : '';
+            if ($generateMetadata) {
+                $altText = trim($result->altText);
+                if ($altText === '') {
+                    throw new \RuntimeException('AutoAlt.ai returned an empty alt text response.');
+                }
+                $title = $this->isEnabled($configuration['generateTitle'] ?? true) ? trim($result->title) : '';
+                $description = $this->isEnabled($configuration['generateDescription'] ?? true) ? trim($result->description) : '';
 
-            $metadata = $this->metadataWriterService->updateGeneratedFields(
-                $file->getUid(),
-                (int)($metadata['uid'] ?? 0),
-                $altText,
-                $title,
-                $description
-            );
-            if ($languageSelection !== null) {
-                $this->altTextTranslationService->translate(
-                    file: $file,
-                    defaultMetadataUid: (int)($metadata['uid'] ?? 0),
-                    defaultAltText: $altText,
-                    defaultTitle: trim((string)($metadata['title'] ?? '')),
-                    defaultDescription: trim((string)($metadata['description'] ?? '')),
-                    selection: $languageSelection,
+                $metadata = $this->metadataWriterService->updateGeneratedFields(
+                    $file->getUid(),
+                    (int)($metadata['uid'] ?? 0),
+                    $altText,
+                    $title,
+                    $description
+                );
+                if ($languageSelection !== null) {
+                    $this->altTextTranslationService->translate(
+                        file: $file,
+                        defaultMetadataUid: (int)($metadata['uid'] ?? 0),
+                        defaultAltText: $altText,
+                        defaultTitle: trim((string)($metadata['title'] ?? '')),
+                        defaultDescription: trim((string)($metadata['description'] ?? '')),
+                        selection: $languageSelection,
+                        source: 'upload',
+                        websiteDomain: $websiteDomain,
+                        overwriteGeneratedTranslations: $this->isEnabled($configuration['overwriteExistingAltText'] ?? false),
+                        logFailures: $this->isEnabled($configuration['logApiErrors'] ?? true),
+                    );
+                }
+                $this->historyService->recordSuccess(
+                    fileUid: $file->getUid(),
+                    metadataUid: (int)($metadata['uid'] ?? 0),
+                    fileIdentifier: $file->getIdentifier(),
+                    fileName: $file->getName(),
                     source: 'upload',
+                    language: $language,
+                    generatedAltText: $altText,
                     websiteDomain: $websiteDomain,
-                    overwriteGeneratedTranslations: $this->isEnabled($configuration['overwriteExistingAltText'] ?? false),
-                    logFailures: $this->isEnabled($configuration['logApiErrors'] ?? true),
+                    generatedTitle: $title,
+                    generatedDescription: $description,
                 );
             }
-            $this->historyService->recordSuccess(
-                fileUid: $file->getUid(),
-                metadataUid: (int)($metadata['uid'] ?? 0),
-                fileIdentifier: $file->getIdentifier(),
-                fileName: $file->getName(),
-                source: 'upload',
-                language: $language,
-                generatedAltText: $altText,
-                websiteDomain: $websiteDomain,
-                generatedTitle: $title,
-                generatedDescription: $description,
-            );
         } catch (\Throwable $exception) {
             $this->logFailure($configuration, $file, $exception);
-            $this->recordFailureSafely($file, $metadata, $language, $websiteDomain, $exception);
+            if ($generateMetadata) {
+                $this->recordFailureSafely($file, $metadata, $language, $websiteDomain, $exception);
+            }
             return;
         }
     }
@@ -133,13 +152,13 @@ final readonly class AutoGenerateOnUploadEventListener
             return;
         }
 
-        $this->logger->error('AutoAlt.ai automatic alt text generation failed for an uploaded file.', [
+        $this->logger->error('AutoAlt.ai automatic upload processing failed.', [
             'fileUid' => $file->getUid(),
             'fileName' => $file->getName(),
             'exception' => $exception,
         ]);
         try {
-            $this->errorLogService->record('error', 'Auto-generate on upload failed for "' . $file->getName() . '": ' . $exception->getMessage(), [
+            $this->errorLogService->record('error', 'Automatic upload processing failed for "' . $file->getName() . '": ' . $exception->getMessage(), [
                 'fileUid' => $file->getUid(),
             ]);
         } catch (\Throwable $loggingException) {
@@ -177,6 +196,55 @@ final readonly class AutoGenerateOnUploadEventListener
                 'fileUid' => $file->getUid(),
                 'fileName' => $file->getName(),
                 'exception' => $historyException,
+            ]);
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    private function renameUploadedFile(array $configuration, File $file, string $filename, string $apiRequestId): void
+    {
+        if ($filename === '') {
+            $this->logRenameFailure($configuration, $file, 'AutoAlt.ai did not return a filename. The uploaded file was not renamed.');
+            return;
+        }
+
+        $backendUser = $GLOBALS['BE_USER'] ?? null;
+        $result = $this->fileRenameService->renameAfterUpload(
+            file: $file,
+            requestedBasename: $filename,
+            apiRequestId: $apiRequestId,
+            backendUser: $backendUser instanceof BackendUserAuthentication ? $backendUser : null,
+        );
+        if (!$result->success && !$result->skipped) {
+            $this->logRenameFailure($configuration, $file, $result->message);
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    private function logRenameFailure(array $configuration, File $file, string $message): void
+    {
+        if (!$this->isEnabled($configuration['logApiErrors'] ?? true)) {
+            return;
+        }
+
+        $this->logger->warning('AutoAlt.ai automatic image rename after upload failed.', [
+            'fileUid' => $file->getUid(),
+            'fileName' => $file->getName(),
+            'message' => $message,
+        ]);
+        try {
+            $this->errorLogService->record('warning', 'Auto-rename on upload failed for "' . $file->getName() . '": ' . $message, [
+                'fileUid' => $file->getUid(),
+            ]);
+        } catch (\Throwable $loggingException) {
+            $this->logger->warning('AutoAlt.ai upload rename failure could not be written to the extension error log.', [
+                'fileUid' => $file->getUid(),
+                'fileName' => $file->getName(),
+                'exception' => $loggingException,
             ]);
         }
     }

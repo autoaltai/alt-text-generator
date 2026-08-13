@@ -6,6 +6,7 @@ namespace AutoAltAi\AltTextGenerator\Tests\Unit\Service;
 
 use AutoAltAi\AltTextGenerator\Service\FileGenerateRequestFactory;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Resource\File;
 
 final class FileGenerateRequestFactoryTest extends TestCase
 {
@@ -30,5 +31,29 @@ final class FileGenerateRequestFactoryTest extends TestCase
     public function testUnknownExtensionIsRejected(): void
     {
         self::assertFalse($this->subject->isAllowedExtension('pdf', 'jpg,png,webp'));
+    }
+
+    public function testUploadRenameOverrideRequestsOnlyAnAiFilenameWhenMetadataGenerationIsDisabled(): void
+    {
+        $file = $this->createMock(File::class);
+        $file->method('getPublicUrl')->willReturn('https://example.test/file.jpg');
+        $file->method('getName')->willReturn('file.jpg');
+
+        $request = $this->subject->buildFromFile(
+            file: $file,
+            configuration: ['usePublicImageUrls' => '1'],
+            websiteDomain: 'example.test',
+            generateTitleOverride: false,
+            generateDescriptionOverride: false,
+            generateAltTextOverride: false,
+            renameFileOverride: true,
+        );
+
+        self::assertTrue($request->renameFile);
+        self::assertFalse($request->generateAltText);
+        self::assertFalse($request->generateTitle);
+        self::assertFalse($request->generateDescription);
+        self::assertSame('on', $request->toPayload()['autoaltai_rename_file']);
+        self::assertSame('off', $request->toPayload()['autoaltai_alt_text']);
     }
 }

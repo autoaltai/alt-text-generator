@@ -30,6 +30,7 @@ final readonly class ConfigurationService
         'negativeKeywords' => '',
         'customPrompt' => '',
         'autoGenerateOnUpload' => '1',
+        'autoRenameOnUpload' => '0',
         'overwriteExistingAltText' => '1',
         'usePublicImageUrls' => '0',
         'allowedImageExtensions' => 'jpg,jpeg,png,webp,gif,avif,svg',

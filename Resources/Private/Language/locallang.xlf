@@ -800,6 +800,9 @@
             <trans-unit id="settings.field.autoGenerateOnUpload">
                 <source>Auto-generate on upload</source>
             </trans-unit>
+            <trans-unit id="settings.field.autoRenameOnUpload">
+                <source>Automatically Rename Uploaded Image Files</source>
+            </trans-unit>
             <trans-unit id="settings.field.overwriteExistingAltText">
                 <source>Overwrite existing alt text</source>
             </trans-unit>
@@ -1244,6 +1247,7 @@
             <trans-unit id="rename.history.date"><source>Rename date</source></trans-unit>
             <trans-unit id="rename.history.user"><source>Backend user</source></trans-unit>
             <trans-unit id="rename.method.ai"><source>AI</source></trans-unit>
+            <trans-unit id="rename.method.auto"><source>Automatic upload</source></trans-unit>
             <trans-unit id="rename.method.manual"><source>Manual</source></trans-unit>
             <trans-unit id="rename.method.undo"><source>Undo</source></trans-unit>
 
