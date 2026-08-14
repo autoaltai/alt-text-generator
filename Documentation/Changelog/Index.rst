@@ -5,6 +5,19 @@
 Changelog
 =========
 
+1.0.7
+-----
+
+- Restored the AutoAlt.ai backend module placement in TYPO3 13 while retaining
+  its TYPO3 14 Media-module placement.
+- Made Filelist bulk-generation progress handling compatible with TYPO3 13
+  progress-bar elements.
+- Updated the single-image metadata control to use the TYPO3 13-compatible
+  FormEngine validation API.
+- Updated the backend module icon and release/update documentation.
+- No manual data migration or configuration change is required. Existing
+  AutoAlt.ai settings, history, and API connections remain unchanged.
+
 1.0.6
 -----
 

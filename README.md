@@ -78,7 +78,6 @@ Install the extension from the root of your Composer-based TYPO3 project:
 ```bash
 composer require autoaltai/alt-text-generator
 vendor/bin/typo3 extension:setup
-vendor/bin/typo3 database:updateschema
 ```
 
 Then sign in to TYPO3 and open:
@@ -90,6 +89,22 @@ Media > AutoAlt.ai > Extension Configuration
 Connect an existing AutoAlt.ai API key, or use the email verification flow to
 create/connect an account. Test a small group of images before processing a
 full media library or enabling automatic generation.
+
+## Update to 1.0.7
+
+Version 1.0.7 does not require a manual data migration or settings change.
+From the root of your TYPO3 project, update the package and refresh TYPO3's
+extension setup and caches:
+
+```bash
+composer update autoaltai/alt-text-generator --with-all-dependencies
+vendor/bin/typo3 extension:setup
+vendor/bin/typo3 cache:warmup
+```
+
+After deployment, open **Media > AutoAlt.ai > Extension Configuration** to
+confirm the API connection and credit balance, then run one test generation.
+Existing settings, history, and API connections are retained.
 
 ## Quick first run
 

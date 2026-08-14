@@ -34,11 +34,12 @@ opening the module:
 
 * In the TYPO3 backend, open **Admin Tools > Maintenance > Analyze Database
   Structure** and apply the suggested changes; or
-* Run the following command:
+* Run the following command, which activates newly installed extensions and
+  performs their database migrations:
 
   ..  code-block:: bash
 
-      vendor/bin/typo3 database:updateschema
+      vendor/bin/typo3 extension:setup
 
 ..  important::
 
@@ -107,7 +108,7 @@ For every extension update:
 
 #. Update the Composer package.
 #. Run ``vendor/bin/typo3 extension:setup``.
-#. Run the Database Analyzer or ``vendor/bin/typo3 database:updateschema``.
+#. Review and apply any proposed changes in the Database Analyzer.
 #. Flush TYPO3 caches if the backend does not show the new assets or module
    changes.
 

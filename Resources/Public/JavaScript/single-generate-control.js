@@ -1,6 +1,5 @@
 import DocumentService from '@typo3/core/document-service.js';
 import AjaxRequest from '@typo3/core/ajax/ajax-request.js';
-import FormEngine from '@typo3/backend/form-engine.js';
 import FormEngineValidation from '@typo3/backend/form-engine-validation.js';
 import Notification from '@typo3/backend/notification.js';
 import '@typo3/backend/element/spinner-element.js';
@@ -61,7 +60,7 @@ class SingleGenerateControl {
     field.value = value;
     field.dispatchEvent(new Event('change'));
     FormEngineValidation.validateField(field);
-    FormEngine.markFieldAsChanged(field);
+    FormEngineValidation.markFieldAsChanged(field);
   }
 
   addLabel() {

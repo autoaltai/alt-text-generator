@@ -72,6 +72,20 @@ function chunkArray(items, size) {
   return chunks;
 }
 
+function startProgress(progressBar) {
+  if (typeof progressBar.start === 'function') {
+    progressBar.start();
+  }
+}
+
+async function finishProgress(progressBar) {
+  if (typeof progressBar.done === 'function') {
+    await progressBar.done();
+  } else {
+    progressBar.remove();
+  }
+}
+
 async function injectButton(actionsWrapper) {
   if (actionsWrapper.querySelector('[data-multi-record-selection-action="' + ACTION_NAME + '"]')) {
     return;
@@ -204,7 +218,7 @@ async function runChunkedGeneration(fileUids, batchSize, button) {
   const progressBar = document.createElement('typo3-backend-progress-bar');
   progressBar.max = total;
   (currentActionsWrapper || button.parentElement)?.appendChild(progressBar);
-  progressBar.start();
+  startProgress(progressBar);
 
   // Warn on navigation away, since this is a client-driven loop with no
   // server-side job to resume - closing the tab mid-run abandons the rest.
@@ -252,7 +266,7 @@ async function runChunkedGeneration(fileUids, batchSize, button) {
   }
 
   window.removeEventListener('beforeunload', beforeUnloadHandler);
-  await progressBar.done();
+  await finishProgress(progressBar);
   setButtonBusy(button, false);
 
   if (stoppedEarly) {

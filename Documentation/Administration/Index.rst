@@ -108,11 +108,12 @@ Upgrades and backups
 
 Before an extension update, back up the database and application files using
 your normal TYPO3 deployment process. After updating Composer dependencies,
-apply any database changes in the Install Tool or with:
+run the extension setup command, then review any proposed changes in the
+Database Analyzer:
 
 ..  code-block:: bash
 
-    vendor/bin/typo3 database:updateschema
+    vendor/bin/typo3 extension:setup
 
 Clear TYPO3 caches, verify the connection, and run a small generation test
 before starting a production batch. Review the release notes and the

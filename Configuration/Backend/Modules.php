@@ -6,10 +6,15 @@ use AutoAltAi\AltTextGenerator\Controller\BackendModuleController;
 use AutoAltAi\AltTextGenerator\Controller\BulkRenameController;
 use AutoAltAi\AltTextGenerator\Controller\HistoryController;
 use AutoAltAi\AltTextGenerator\Controller\SettingsController;
+use TYPO3\CMS\Core\Information\Typo3Version;
+
+$mainModuleParent = (new Typo3Version())->getMajorVersion() >= 14
+    ? 'media'
+    : 'file';
 
 return [
     'media_autoalt_alt_text_generator' => [
-        'parent' => 'media',
+        'parent' => $mainModuleParent,
         'position' => ['after' => 'media_management'],
         'access' => 'user',
         'workspaces' => 'live',
