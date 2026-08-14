@@ -112,3 +112,42 @@ For every extension update:
    changes.
 
 See :doc:`Troubleshooting/Index` when an update does not complete as expected.
+
+Uninstalling
+============
+
+Uninstalling AutoAlt.ai removes all data owned by the extension. This includes
+the configuration, generation history, rename history, error-log tables,
+legacy extension configuration, and AutoAlt.ai entries in TYPO3's system log.
+It does not undo generated values in ``sys_file_metadata`` or rename files,
+because those records and files are owned by TYPO3 and may have been edited
+after generation.
+
+For a Composer installation, register the following root-project Composer
+script. Composer intentionally runs only scripts declared by the root project,
+not scripts from dependencies. This project already contains the registration.
+Other Composer projects should add it before running
+``composer remove autoaltai/alt-text-generator``:
+
+..  code-block:: json
+
+    {
+      "scripts": {
+        "pre-package-uninstall": "AutoAltAi\\AltTextGenerator\\Composer\\UninstallCleanup::onPrePackageUninstall"
+      }
+    }
+
+The bridge calls ``vendor/bin/typo3 autoalt:cleanup`` while the extension is
+still available, before Composer deletes its package files.
+
+In TYPO3 13, Extension Manager deactivation invokes the same cleanup through
+the package-deactivation event. If an installation has disabled Composer
+scripts, run the command manually before removing the package:
+
+..  code-block:: bash
+
+    vendor/bin/typo3 autoalt:cleanup
+
+The command is idempotent: it succeeds when some or all AutoAlt.ai tables have
+already been removed. A later installation followed by the normal schema setup
+creates empty tables, so no previous AutoAlt.ai history is restored.

@@ -5,6 +5,15 @@
 Changelog
 =========
 
+1.0.6
+-----
+
+- Added automatic uninstall cleanup for TYPO3 13 Extension Manager and
+  Composer package removal.
+- Removes the AutoAlt.ai configuration, generation history, rename history,
+  error-log tables, legacy settings, and related TYPO3 system-log entries.
+- Reinstalling the extension now starts with newly created, empty tables.
+
 1.0.5
 -----
 
